@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>About Us | Affluence Drives</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* Reset (from index.html) */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Global Styles (from index.html) */
+        html, body {
+            margin: 0;
+            padding: 0;
+            scroll-padding-top: 100px; /* If you add sticky nav */
+            background-color: #000; /* Black background */
+            color: white; /* Default text color */
+            font-family: 'Roboto', sans-serif; /* General font */
+        }
+
+        /* Navbar (from index.html) */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: #000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-img {
+            width: 50px; /* Adjust as needed */
+        }
+
+        .nav-bar ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-bar a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .nav-bar a:hover,
+        .nav-bar a.active { /* Added .active for current page in nav */
+            color: gold;
+        }
+
+        /* About Page Specific Styles - Adapted for index.html look */
+        .about-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 60px 5%; /* Increased padding for consistency with content-section */
+            text-align: center; /* Centered text as in index.html's about section */
+            background-color: #111; /* Slightly lighter black, similar to index.html's about-section */
+            border-radius: 10px; /* Soften edges */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+            margin-top: 40px; /* Space from navbar */
+            margin-bottom: 40px; /* Space to footer */
+        }
+
+        /* Section cards within about-container */
+        .about-intro, .about-offer, .contact-section, .share-section {
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.05); /* Slightly transparent white for subtle contrast */
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            text-align: left; /* Align text within cards to left */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for definition */
+        }
+
+        h1, h2 {
+            font-family: 'Playfair Display', serif; /* Heading font from index.html */
+            font-size: 2.5rem; /* Consistent heading size */
+            margin-bottom: 1rem;
+            text-align: center; /* Center headings within cards */
+        }
+
+        /* Color for h2 headings (What We Offer, Get in Touch, Share the Site) */
+        h2 {
+            color: white; /* Changed from gold to white */
+        }
+
+        /* Glow effect only for the main H1 title */
+        .about-intro h1 {
+            font-size: 3rem; /* Slightly larger for main title */
+            letter-spacing: 0.1em; /* From index.html H1 */
+            color: gold; /* Main H1 retains gold color */
+            text-shadow: 0 0 6px #f0c420aa, 0 0 12px #f0c42088, 0 0 20px #f0c42055; /* Glow effect */
+        }
+
+        p {
+            font-size: 1.1rem; /* Slightly larger for readability */
+            line-height: 1.7;
+            color: #ccc; /* Lighter grey for paragraph text */
+        }
+
+        /* New animation for the intro paragraph */
+        .about-intro p {
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 1.5s ease-out 0.5s forwards; /* Fade in after 0.5s delay */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .about-offer ul {
+            padding-left: 1.2rem;
+            list-style: none; /* Remove default bullet */
+            text-align: left; /* Align list items to the left */
+        }
+
+        .about-offer li {
+            margin-bottom: 0.8rem; /* More space between list items */
+            font-size: 1.1rem;
+            color: #f0f0f0; /* Consistent list item color */
+            position: relative;
+            padding-left: 25px; /* Space for custom bullet */
+            opacity: 0; /* Start hidden for animation */
+            animation: fadeInOut 8s infinite ease-in-out; /* Apply animation */
+        }
+
+        /* Stagger animation for each list item */
+        .about-offer li:nth-child(1) { animation-delay: 0s; }
+        .about-offer li:nth-child(2) { animation-delay: 2s; }
+        .about-offer li:nth-child(3) { animation-delay: 4s; }
+        .about-offer li:nth-child(4) { animation-delay: 6s; }
+
+        /* Keyframe animation for fade-in/fade-out */
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(10px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+
+        .about-offer li::before {
+            content: '🌟'; /* Custom bullet point from index.html aesthetic */
+            position: absolute;
+            left: 0;
+            color: gold; /* Gold star color */
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        /* Button Styles (from index.html) */
+        .btn {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0 10px;
+            display: inline-block;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+            user-select: none;
+            text-transform: uppercase; /* Match index.html buttons */
+        }
+
+        .silver-btn {
+            background: #c0c0c0;
+            color: #000;
+            box-shadow: 0 0 8px 1px #eee;
+        }
+
+        .silver-btn:hover {
+            box-shadow: 0 0 15px 4px #ddd;
+        }
+
+        .share-buttons a {
+            margin-right: 10px; /* Adjusted margin for consistent button spacing */
+        }
+
+        /* Footer (from index.html) */
+        footer {
+            background-color: #000;
+            color: #ccc;
+            text-align: center;
+            padding: 40px 5%;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            user-select: none;
+        }
+
+        footer h3 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-bar">
+        <div class="logo">
+            <img src="assets/images/feature.png" alt="Logo" class="logo-img" />
+        </div>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="free.html">FREE CLIPS</a></li>
+            <li><a href="premium.html">PREMIUM CLIPS</a></li>
+            <li><a href="about.html" class="active">ABOUT</a></li>
+        </ul>
+    </nav>
+
+    <main class="about-container">
+        <section class="about-intro">
+            <h1>ABOUT</h1>
+            <p>Affluence Drives curates top-quality downloadable drives, featuring premium and free content across productivity, entertainment, and creativity. Built with care for a seamless experience.</p>
+        </section>
+
+        <section class="about-offer">
+            <h2>What We Offer</h2>
+            <ul>
+                <li>Premium curated Google Drives</li>
+                <li>Free content drives for students and creators</li>
+                <li>Fast & secure access via direct links</li>
+                <li>Sleek, responsive web design</li>
+            </ul>
+        </section>
+
+        <section class="contact-section">
+            <h2>Get in Touch</h2>
+            <p>Have suggestions, drive requests, or facing issues?</p>
+            <a href="mailto:affluence.drives@gmail.com" class="btn silver-btn">📧 Email Us</a>
+        </section>
+
+        <section class="share-section">
+            <h2>Share the Site</h2>
+            <p>Love our drives? Help others discover them:</p>
+            <div class="share-buttons">
+                <a href="https://twitter.com/share?url=https://affluence-drives.vercel.app" target="_blank" class="btn silver-btn">🐦 Twitter</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://affluence-drives.vercel.app" target="_blank" class="btn silver-btn">📘 Facebook</a>
+                <a href="https://wa.me/?text=https://affluence-drives.vercel.app" target="_blank" class="btn silver-btn">📱 WhatsApp</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-about">
+            <h3>Affluence Drives</h3>
+            <p>Your destination for cinematic luxury content that captivates and inspires.</p>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Affluence Drives. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
