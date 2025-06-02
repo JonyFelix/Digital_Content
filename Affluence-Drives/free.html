@@ -179,21 +179,21 @@
         .clip-card img,
         .clip-card video {
             width: 100%;
-            height: 100%; /* Fill the container */
+            height: 100%;
             object-fit: cover;
-            position: absolute; /* Position thumbnail/video over each other */
+            position: absolute;
             top: 0;
             left: 0;
             transition: opacity 0.3s ease;
         }
 
         .clip-card video {
-            opacity: 0; /* Hidden by default */
-            z-index: 1; /* Above image on hover */
+            opacity: 0;
+            z-index: 1;
         }
 
         .clip-card:hover video {
-            opacity: 1; /* Show video on hover */
+            opacity: 1;
         }
 
         /* Play icon overlay (now also has download button) */
@@ -203,15 +203,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+            background-color: rgba(0, 0, 0, 0.5);
             display: flex;
-            flex-direction: column; /* Stack play icon and button */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 15px; /* Space between play icon and button */
+            gap: 15px;
             opacity: 0;
             transition: opacity 0.3s ease;
-            z-index: 2; /* Above video */
+            z-index: 2;
         }
 
         .clip-card:hover .hover-overlay {
@@ -233,8 +233,8 @@
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            text-decoration: none; /* For if it's an anchor tag */
-            display: inline-flex; /* To align icon and text */
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -247,36 +247,35 @@
 
         /* Hide description/title from main view for cleaner look */
         .clip-card-info {
-            position: absolute; /* Position info over the video/image */
+            position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); /* Gradient to fade into black */
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
             padding: 15px;
             text-align: center;
             transition: opacity 0.3s ease;
-            z-index: 0; /* Keep it below hover overlay */
-            opacity: 1; /* Visible by default */
+            z-index: 0;
+            opacity: 1;
         }
         .clip-card:hover .clip-card-info {
-            opacity: 0; /* Fade out on hover */
+            opacity: 0;
         }
 
         .clip-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem; /* Adjusted for smaller space */
-            color: gold; /* Gold color for clip titles */
-            margin-bottom: 5px; /* Reduced margin */
+            font-size: 1.5rem;
+            color: gold;
+            margin-bottom: 5px;
             text-align: center;
-            white-space: nowrap; /* Prevent title wrapping */
-            overflow: hidden; /* Hide overflow */
-            text-overflow: ellipsis; /* Add ellipsis */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .clip-card p {
-            display: none; /* Hide description by default for cleaner look */
+            display: none;
         }
-
 
         /* Button Styles (from index.html) */
         .btn {
@@ -291,7 +290,7 @@
             transition: box-shadow 0.3s ease;
             user-select: none;
             text-transform: uppercase;
-            border: none; /* Ensure no default button border */
+            border: none;
         }
 
         .silver-btn {
@@ -334,11 +333,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9); /* Darker overlay */
+            background-color: rgba(0, 0, 0, 0.9);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 2000; /* Above everything else */
+            z-index: 2000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -353,21 +352,21 @@
             position: relative;
             background-color: #1a1a1a;
             border-radius: 10px;
-            box-shadow: 0 0 30px rgba(240, 196, 32, 0.5); /* Gold glow for modal */
+            box-shadow: 0 0 30px rgba(240, 196, 32, 0.5);
             padding: 20px;
             max-width: 90vw;
             max-height: 90vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px; /* Space between elements in modal */
+            gap: 20px;
         }
 
         .video-player-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Max width for the video player */
-            aspect-ratio: 9 / 16; /* 9:16 aspect ratio for reels */
+            max-width: 500px;
+            aspect-ratio: 9 / 16;
             background-color: #000;
             border-radius: 8px;
             overflow: hidden;
@@ -376,7 +375,7 @@
         .video-player-container video {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Ensure video fits without cropping */
+            object-fit: contain;
         }
 
         .video-modal-close {
@@ -423,7 +422,7 @@
         /* Related Clips Section in Modal */
         .related-clips-section {
             width: 100%;
-            max-width: 500px; /* Match video player width */
+            max-width: 500px;
             text-align: center;
             margin-top: 20px;
         }
@@ -437,7 +436,7 @@
 
         .related-clips-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Smaller grid for related clips */
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 15px;
             justify-items: center;
         }
@@ -449,9 +448,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
-            width: 100%; /* Take full width of its grid column */
-            max-width: 150px; /* Cap size for related clips */
-            height: 150px; /* Fixed height for consistent look */
+            width: 100%;
+            max-width: 150px;
+            height: 150px;
             position: relative;
         }
 
@@ -529,7 +528,7 @@
                 font-size: 1.5rem;
             }
             .clip-grid {
-                grid-template-columns: 1fr; /* Stack cards on very small screens */
+                grid-template-columns: 1fr;
             }
             .free-download-btn {
                 padding: 10px 20px;
@@ -539,7 +538,7 @@
                 font-size: 1.8rem;
             }
             .related-clips-grid {
-                grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -617,15 +616,16 @@
         const videoModal = document.getElementById('videoModal');
         const closeModalBtn = document.getElementById('closeModal');
         const modalVideo = document.getElementById('modalVideo');
-        const modalDownloadButton = document.getElementById('modalDownloadButton'); // Changed to button
+        const modalDownloadButton = document.getElementById('modalDownloadButton');
         const clipGrid = document.getElementById('clipGrid');
         const clipSearchInput = document.getElementById('clipSearch');
         const loadingMessage = document.getElementById('loadingMessage');
         const relatedClipsGrid = document.getElementById('relatedClipsGrid');
         const endOfClipsMessage = document.getElementById('endOfClips');
 
-        let allClipsData = []; // This will be populated from clips.json
-        const clipsPerPage = 9; // Number of clips to load at once
+        let allClipsData = []; // Stores all fetched clips
+        let currentFilteredClips = []; // Stores clips currently being displayed/filtered
+        const clipsPerPage = 9;
         let currentPage = 0;
         let isLoading = false; // To prevent multiple simultaneous loads
 
@@ -636,19 +636,20 @@
             loadingMessage.style.display = 'block'; // Show loading message
 
             try {
-                const response = await fetch('clips.json');
+                // Ensure clips.json is in the same directory or adjust path
+                const response = await fetch('clips.json'); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 allClipsData = await response.json();
-                allClipsData.sort((a, b) => {
-                    // Assuming 'id' can be used for sorting, or add a 'dateAdded' field
-                    // For example: return new Date(b.dateAdded) - new Date(a.dateAdded);
-                    // For now, reverse order of id for a simple "newest first" effect
-                    return b.id.localeCompare(a.id); 
-                });
+                // Sort by dateAdded (newest first). Make sure 'dateAdded' exists in your clips.json!
+                allClipsData.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+
+                // Initialize currentFilteredClips with all data for initial display
+                currentFilteredClips = [...allClipsData];
+
                 loadingMessage.style.display = 'none'; // Hide loading message
-                loadMoreClips(); // Load initial set of clips
+                loadInitialClips(); // Load the first set of clips
             } catch (error) {
                 console.error('Error fetching clips:', error);
                 loadingMessage.textContent = 'Failed to load clips. Please try again later.';
@@ -657,36 +658,66 @@
             }
         }
 
+        function loadInitialClips() {
+            clipGrid.innerHTML = ''; // Clear existing clips
+            currentPage = 0; // Reset page for initial load
+            endOfClipsMessage.style.display = 'none'; // Hide end of clips message
+
+            const initialClips = currentFilteredClips.slice(0, clipsPerPage);
+            if (initialClips.length > 0) {
+                initialClips.forEach(clip => {
+                    clipGrid.appendChild(createClipCard(clip));
+                });
+                currentPage++;
+            } else {
+                clipGrid.innerHTML = '<p style="color: #ccc; font-size: 1.2rem;">No clips available.</p>';
+                endOfClipsMessage.style.display = 'block';
+            }
+
+            // If there are more clips than the initial load, keep observing for infinite scroll
+            if (currentFilteredClips.length > clipsPerPage) {
+                observer.observe(sentinel);
+            } else {
+                observer.disconnect(); // No need for infinite scroll if all clips are loaded
+            }
+        }
+
+
         function loadMoreClips() {
-            if (isLoading) return; // Prevent multiple loads
+            if (isLoading || currentFilteredClips.length <= (currentPage * clipsPerPage)) {
+                // Stop if already loading or no more clips to load
+                return;
+            }
+
             isLoading = true;
+            loadingMessage.style.display = 'block';
 
             const startIndex = currentPage * clipsPerPage;
             const endIndex = startIndex + clipsPerPage;
-            const clipsToLoad = allClipsData.slice(startIndex, endIndex);
+            const clipsToLoad = currentFilteredClips.slice(startIndex, endIndex);
 
             if (clipsToLoad.length === 0) {
                 loadingMessage.style.display = 'none';
                 endOfClipsMessage.style.display = 'block';
                 isLoading = false;
+                observer.disconnect(); // No more clips, stop observing
                 return;
             }
 
-            loadingMessage.style.display = 'block'; // Show loading when new content is being added
-            setTimeout(() => { // Simulate network delay for loading
+            setTimeout(() => {
                 clipsToLoad.forEach(clip => {
                     clipGrid.appendChild(createClipCard(clip));
                 });
                 currentPage++;
                 isLoading = false;
-                loadingMessage.style.display = 'none'; // Hide loading after content is added
+                loadingMessage.style.display = 'none';
             }, 500); // Small delay to show loading
         }
 
         function createClipCard(clip) {
             const clipCard = document.createElement('div');
             clipCard.classList.add('clip-card');
-            clipCard.setAttribute('data-id', clip.id); // Store ID for related clips later
+            clipCard.setAttribute('data-id', clip.id);
 
             clipCard.innerHTML = `
                 <div class="clip-card-inner">
@@ -707,10 +738,7 @@
                 </div>
             `;
 
-            // Event listeners for hover play/pause
             const videoElement = clipCard.querySelector('video');
-            const hoverOverlay = clipCard.querySelector('.hover-overlay');
-            const cardInfo = clipCard.querySelector('.clip-card-info');
 
             clipCard.addEventListener('mouseenter', () => {
                 videoElement.play().catch(error => console.log("Video autoplay prevented:", error));
@@ -718,12 +746,10 @@
 
             clipCard.addEventListener('mouseleave', () => {
                 videoElement.pause();
-                videoElement.currentTime = 0; // Reset video to start
+                videoElement.currentTime = 0;
             });
 
-            // Event listener for opening modal (clicking anywhere on card except download button)
             clipCard.addEventListener('click', (event) => {
-                // Check if the click originated from the download button
                 if (!event.target.closest('.direct-download-btn')) {
                     openVideoModal(clip);
                 }
@@ -733,10 +759,9 @@
         }
 
         // --- Video Modal Logic ---
-
         function openVideoModal(clip) {
             modalVideo.src = clip.videoSrc;
-            modalDownloadButton.onclick = () => { // Use onclick for button
+            modalDownloadButton.onclick = () => {
                 const link = document.createElement('a');
                 link.href = clip.videoSrc;
                 link.download = `${clip.title.replace(/\s+/g, '_')}.mp4`;
@@ -746,20 +771,18 @@
             };
             videoModal.classList.add('active');
             modalVideo.play().catch(error => console.log("Modal video autoplay prevented:", error));
-            displayRelatedClips(clip.id); // Load related clips
+            displayRelatedClips(clip.id);
         }
 
         function closeVideoModal() {
-            modalVideo.pause(); // Pause video when closing
-            modalVideo.src = ''; // Clear source to stop loading
+            modalVideo.pause();
+            modalVideo.src = '';
             videoModal.classList.remove('active');
-            relatedClipsGrid.innerHTML = '<p style="text-align: center; color: #ccc;">Loading related clips...</p>'; // Clear related clips
+            relatedClipsGrid.innerHTML = '<p style="text-align: center; color: #ccc;">Loading related clips...</p>';
         }
 
-        // Event listeners for closing modal
         closeModalBtn.addEventListener('click', closeVideoModal);
         videoModal.addEventListener('click', (event) => {
-            // Close modal if clicked outside the content area
             if (event.target === videoModal) {
                 closeVideoModal();
             }
@@ -767,9 +790,8 @@
 
         // --- Related Clips Logic ---
         function displayRelatedClips(currentClipId) {
-            relatedClipsGrid.innerHTML = ''; // Clear previous related clips
+            relatedClipsGrid.innerHTML = '';
 
-            // Filter out the current clip
             const availableClips = allClipsData.filter(clip => clip.id !== currentClipId);
 
             if (availableClips.length === 0) {
@@ -777,9 +799,8 @@
                 return;
             }
 
-            // Shuffle and pick a few random related clips
             const shuffled = availableClips.sort(() => 0.5 - Math.random());
-            const relatedClips = shuffled.slice(0, 6); // Display up to 6 related clips
+            const relatedClips = shuffled.slice(0, 6);
 
             relatedClips.forEach(clip => {
                 const relatedCard = document.createElement('div');
@@ -791,8 +812,8 @@
                     </div>
                 `;
                 relatedCard.addEventListener('click', () => {
-                    closeVideoModal(); // Close current modal
-                    openVideoModal(clip); // Open new modal for related clip
+                    closeVideoModal();
+                    openVideoModal(clip);
                 });
                 relatedClipsGrid.appendChild(relatedCard);
             });
@@ -802,57 +823,42 @@
         clipSearchInput.addEventListener('keyup', () => {
             const searchTerm = clipSearchInput.value.toLowerCase().trim();
             clipGrid.innerHTML = ''; // Clear current grid
-            currentPage = 0; // Reset pagination
 
             if (searchTerm === '') {
-                displayClips(allClipsData); // Show all if search is empty
+                currentFilteredClips = [...allClipsData]; // Reset to all clips
                 endOfClipsMessage.style.display = 'none';
             } else {
-                const filteredClips = allClipsData.filter(clip => {
+                currentFilteredClips = allClipsData.filter(clip => {
                     const tags = clip.tags.join(' ').toLowerCase();
                     const title = clip.title.toLowerCase();
                     return tags.includes(searchTerm) || title.includes(searchTerm);
                 });
-                displayClips(filteredClips);
-                if (filteredClips.length === 0) {
+                if (currentFilteredClips.length === 0) {
                     clipGrid.innerHTML = '<p style="color: #ccc; font-size: 1.2rem;">No clips found matching your search.</p>';
                 }
                 endOfClipsMessage.style.display = 'none';
             }
+            currentPage = 0; // Reset current page for new search/filtered results
+            loadMoreClips(); // Load the first page of filtered results (or all if < clipsPerPage)
         });
 
-        function displayClips(clipsToDisplay) {
-            // This function is now mainly for initial display or search results,
-            // Infinite scroll will handle subsequent loading.
-            clipGrid.innerHTML = '';
-            clipsToDisplay.forEach(clip => {
-                clipGrid.appendChild(createClipCard(clip));
-            });
-        }
-
-
         // --- Infinite Scroll Logic ---
+        const sentinel = document.createElement('div');
+        sentinel.id = 'scroll-sentinel';
+        sentinel.style.height = '1px';
+        clipGrid.parentNode.appendChild(sentinel);
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && !isLoading && allClipsData.length > (currentPage * clipsPerPage)) {
+                if (entry.isIntersecting && !isLoading && currentFilteredClips.length > (currentPage * clipsPerPage)) {
                     loadMoreClips();
                 }
             });
         }, {
-            root: null, // viewport
-            rootMargin: '0px 0px 200px 0px', // Load 200px before reaching end
-            threshold: 0.1 // Trigger when 10% of target is visible
+            root: null,
+            rootMargin: '0px 0px 200px 0px',
+            threshold: 0.1
         });
-
-        // Observe the last element of the content section (footer or a dummy div)
-        // For simple setup, let's observe the loadingMessage or a new dummy element
-        const sentinel = document.createElement('div');
-        sentinel.id = 'scroll-sentinel';
-        sentinel.style.height = '1px'; // Tiny invisible element
-        clipGrid.parentNode.appendChild(sentinel); // Add it after the clipGrid
-
-        observer.observe(sentinel);
-
 
         // Load clips when the page loads
         document.addEventListener('DOMContentLoaded', fetchClips);
