@@ -281,7 +281,7 @@
             display: none; /* Description still hidden */
         }
 
-        /* Button Styles (from index.html) */
+        /* Button Styles (from index.html) - Note: not used in this direct download flow */
         .btn {
             text-decoration: none;
             padding: 10px 20px;
@@ -330,146 +330,7 @@
             color: #aaa;
         }
 
-        /* Download Modal (formerly Video Player Modal) */
-        .download-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .download-modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .download-modal-content {
-            position: relative;
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(240, 196, 32, 0.5);
-            padding: 20px;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        /* Removed .video-player-container and video styling as modal will not play video */
-
-        .modal-close { /* Renamed from video-modal-close */
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 2010;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: gold;
-        }
-
-        /* New Download Button in Modal */
-        .free-download-btn-modal { /* Renamed to differentiate from direct-download-btn */
-            background-color: gold;
-            color: #000;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(240, 196, 32, 0.4);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none; /* Ensure it looks like a button but acts like a link */
-        }
-
-        .free-download-btn-modal:hover {
-            background-color: #ffd700;
-            box-shadow: 0 6px 20px rgba(240, 196, 32, 0.6);
-        }
-
-        /* Related Clips Section in Modal */
-        .related-clips-section {
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .related-clips-section h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        .related-clips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            justify-items: center;
-        }
-
-        .related-clip-card {
-            background-color: #0d0d0d;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            width: 100%;
-            max-width: 150px;
-            height: 150px;
-            position: relative;
-        }
-
-        .related-clip-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 12px gold;
-        }
-
-        .related-clip-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .related-clip-card .title-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px;
-            font-size: 0.85rem;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        /* No modal styles needed anymore */
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
@@ -490,21 +351,8 @@
             .search-container input[type="text"] {
                 width: 90%;
             }
-            .download-modal-content {
-                padding: 10px;
-            }
-            .free-download-btn-modal {
-                padding: 12px 25px;
-                font-size: 1rem;
-            }
-            .related-clips-section h3 {
-                font-size: 1.5rem;
-            }
-            .related-clips-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-            .related-clip-card {
-                height: 120px;
+            .clip-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
 
@@ -517,16 +365,6 @@
             }
             .clip-grid {
                 grid-template-columns: 1fr;
-            }
-            .free-download-btn-modal {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            .modal-close {
-                font-size: 1.8rem;
-            }
-            .related-clips-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -578,32 +416,11 @@
         </div>
     </footer>
 
-    <div class="download-modal-overlay" id="downloadModal">
-        <div class="download-modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
-            
-            <a id="modalDownloadLink" class="free-download-btn-modal" href="#" download>
-                <i class="fas fa-download"></i> Free Download
-            </a>
-
-            <div class="related-clips-section">
-                <h3>More Clips You Might Like</h3>
-                <div class="related-clips-grid" id="relatedClipsGrid">
-                    <p style="text-align: center; color: #ccc;">Loading related clips...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         // Get elements
-        const downloadModal = document.getElementById('downloadModal'); // Changed to downloadModal
-        const closeModalBtn = document.getElementById('closeModal');
-        const modalDownloadLink = document.getElementById('modalDownloadLink'); // Changed to modalDownloadLink
         const clipGrid = document.getElementById('clipGrid');
         const clipSearchInput = document.getElementById('clipSearch');
         const loadingMessage = document.getElementById('loadingMessage');
-        const relatedClipsGrid = document.getElementById('relatedClipsGrid');
         const endOfClipsMessage = document.getElementById('endOfClips');
 
         let allClipsData = []; // Stores all fetched clips
@@ -731,68 +548,25 @@
                 videoElement.currentTime = 0;
             });
 
-            // The main click on the card will now open the download modal
+            // Modify the click listener for the entire card
             clipCard.addEventListener('click', (event) => {
-                // Prevent opening modal if direct download button is clicked within the card
-                if (!event.target.closest('.direct-download-btn')) {
-                    openDownloadModal(clip);
+                // If the click is specifically on the direct download button within the overlay,
+                // let its default behavior (direct download) handle it.
+                if (event.target.closest('.direct-download-btn')) {
+                    return; 
                 }
+
+                // Otherwise, if any other part of the card is clicked (thumbnail, play icon, title),
+                // trigger a direct download for the current clip.
+                const downloadLink = document.createElement('a');
+                downloadLink.href = clip.videoSrc; // Set the video source as the download link
+                downloadLink.download = `${clip.title.replace(/\s+/g, '_')}.mp4`; // Set the filename for download
+                document.body.appendChild(downloadLink); // Temporarily append to body to enable click
+                downloadLink.click(); // Programmatically click the link
+                document.body.removeChild(downloadLink); // Clean up the temporary link
             });
 
             return clipCard;
-        }
-
-        // --- Download Modal Logic (formerly Video Modal) ---
-        function openDownloadModal(clip) {
-            // Set the download link's href and download attribute
-            modalDownloadLink.href = clip.videoSrc;
-            modalDownloadLink.download = `${clip.title.replace(/\s+/g, '_')}.mp4`;
-            
-            downloadModal.classList.add('active'); // Show the modal
-            displayRelatedClips(clip.id); // Display related clips
-        }
-
-        function closeDownloadModal() {
-            downloadModal.classList.remove('active');
-            relatedClipsGrid.innerHTML = '<p style="text-align: center; color: #ccc;">Loading related clips...</p>'; // Reset related clips
-        }
-
-        closeModalBtn.addEventListener('click', closeDownloadModal);
-        downloadModal.addEventListener('click', (event) => {
-            if (event.target === downloadModal) {
-                closeDownloadModal();
-            }
-        });
-
-        // --- Related Clips Logic ---
-        function displayRelatedClips(currentClipId) {
-            relatedClipsGrid.innerHTML = '';
-
-            const availableClips = allClipsData.filter(clip => clip.id !== currentClipId);
-
-            if (availableClips.length === 0) {
-                relatedClipsGrid.innerHTML = '<p style="color: #ccc;">No other clips available.</p>';
-                return;
-            }
-
-            const shuffled = availableClips.sort(() => 0.5 - Math.random());
-            const relatedClips = shuffled.slice(0, 6);
-
-            relatedClips.forEach(clip => {
-                const relatedCard = document.createElement('div');
-                relatedCard.classList.add('related-clip-card');
-                relatedCard.innerHTML = `
-                    <img src="${clip.thumbnail}" alt="${clip.title} Thumbnail">
-                    <div class="title-overlay">
-                        ${clip.title}
-                    </div>
-                `;
-                relatedCard.addEventListener('click', () => {
-                    closeDownloadModal(); // Close current modal
-                    openDownloadModal(clip); // Open new modal for the clicked related clip
-                });
-                relatedClipsGrid.appendChild(relatedCard);
-            });
         }
 
         // --- Search Bar Logic ---
@@ -812,32 +586,4 @@
                 if (currentFilteredClips.length === 0) {
                     clipGrid.innerHTML = '<p style="color: #ccc; font-size: 1.2rem;">No clips found matching your search.</p>';
                 }
-                endOfClipsMessage.style.display = 'none';
-            }
-            currentPage = 0; // Reset current page for new search/filtered results
-            loadInitialClips(); // Load the first page of filtered results (or all if < clipsPerPage)
-        });
-
-        // --- Infinite Scroll Logic ---
-        const sentinel = document.createElement('div');
-        sentinel.id = 'scroll-sentinel';
-        sentinel.style.height = '1px';
-        clipGrid.parentNode.appendChild(sentinel);
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !isLoading && currentFilteredClips.length > (currentPage * clipsPerPage)) {
-                    loadMoreClips();
-                }
-            });
-        }, {
-            root: null,
-            rootMargin: '0px 0px 200px 0px',
-            threshold: 0.1
-        });
-
-        // Load clips when the page loads
-        document.addEventListener('DOMContentLoaded', fetchClips);
-    </script>
-</body>
-</html>
+                endOfClipsMessage.style.display = 'none
