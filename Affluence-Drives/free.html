@@ -730,12 +730,13 @@
             const videoElement = clipCard.querySelector('video');
 
             clipCard.addEventListener('mouseenter', () => {
+                // Autoplay on hover (muted and looped as per video attributes)
                 videoElement.play().catch(error => console.log("Video autoplay prevented:", error));
             });
 
             clipCard.addEventListener('mouseleave', () => {
                 videoElement.pause();
-                videoElement.currentTime = 0;
+                videoElement.currentTime = 0; // Reset video to start
             });
 
             // IMPORTANT: Modified click listener for the entire card
