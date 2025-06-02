@@ -586,4 +586,32 @@
                 if (currentFilteredClips.length === 0) {
                     clipGrid.innerHTML = '<p style="color: #ccc; font-size: 1.2rem;">No clips found matching your search.</p>';
                 }
-                endOfClipsMessage.style.display = 'none
+                endOfClipsMessage.style.display = 'none';
+            }
+            currentPage = 0; // Reset current page for new search/filtered results
+            loadInitialClips(); // Load the first page of filtered results (or all if < clipsPerPage)
+        });
+
+        // --- Infinite Scroll Logic ---
+        const sentinel = document.createElement('div');
+        sentinel.id = 'scroll-sentinel';
+        sentinel.style.height = '1px';
+        clipGrid.parentNode.appendChild(sentinel);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !isLoading && currentFilteredClips.length > (currentPage * clipsPerPage)) {
+                    loadMoreClips();
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px 0px 200px 0px',
+            threshold: 0.1
+        });
+
+        // Load clips when the page loads
+        document.addEventListener('DOMContentLoaded', fetchClips);
+    </script>
+</body>
+</html>
