@@ -633,4 +633,234 @@
                 }
                 allClipsData = await response.json();
                 // Sort by dateAdded (newest first). Make sure 'dateAdded' exists in your clips.json!
-   
+                allClipsData.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+
+                // Initialize currentFilteredClips with all data for initial display
+                currentFilteredClips = [...allClipsData];
+
+                loadingMessage.style.display = 'none'; // Hide loading message
+                loadInitialClips(); // Load the first set of clips
+            } catch (error) {
+                console.error('Error fetching clips:', error);
+                loadingMessage.textContent = 'Failed to load clips. Please try again later.';
+            } finally {
+                isLoading = false;
+            }
+        }
+
+        function loadInitialClips() {
+            clipGrid.innerHTML = ''; // Clear existing clips
+            currentPage = 0; // Reset page for initial load
+            endOfClipsMessage.style.display = 'none'; // Hide end of clips message
+
+            const initialClips = currentFilteredClips.slice(0, clipsPerPage);
+            if (initialClips.length > 0) {
+                initialClips.forEach(clip => {
+                    clipGrid.appendChild(createClipCard(clip));
+                });
+                currentPage++;
+            } else {
+                clipGrid.innerHTML = '<p style="color: #ccc; font-size: 1.2rem;">No clips available.</p>';
+                endOfClipsMessage.style.display = 'block';
+            }
+
+            // If there are more clips than the initial load, keep observing for infinite scroll
+            if (currentFilteredClips.length > clipsPerPage) {
+                observer.observe(sentinel);
+            } else {
+                observer.disconnect(); // No need for infinite scroll if all clips are loaded
+            }
+        }
+
+        function loadMoreClips() {
+            if (isLoading || currentFilteredClips.length <= (currentPage * clipsPerPage)) {
+                // Stop if already loading or no more clips to load
+                return;
+            }
+
+            isLoading = true;
+            loadingMessage.style.display = 'block';
+
+            const startIndex = currentPage * clipsPerPage;
+            const endIndex = startIndex + clipsPerPage;
+            const clipsToLoad = currentFilteredClips.slice(startIndex, endIndex);
+
+            if (clipsToLoad.length === 0) {
+                loadingMessage.style.display = 'none';
+                endOfClipsMessage.style.display = 'block';
+                isLoading = false;
+                observer.disconnect(); // No more clips, stop observing
+                return;
+            }
+
+            setTimeout(() => {
+                clipsToLoad.forEach(clip => {
+                    clipGrid.appendChild(createClipCard(clip));
+                });
+                currentPage++;
+                isLoading = false;
+                loadingMessage.style.display = 'none';
+            }, 500); // Small delay to show loading
+        }
+
+        function createClipCard(clip) {
+            const clipCard = document.createElement('div');
+            clipCard.classList.add('clip-card');
+            clipCard.setAttribute('data-id', clip.id);
+
+            clipCard.innerHTML = `
+                <div class="clip-card-inner">
+                    <img src="${clip.thumbnail}" alt="${clip.title} Thumbnail">
+                    <video loop muted playsinline preload="none" poster="${clip.thumbnail}">
+                        <source src="${clip.videoSrc}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="hover-overlay">
+                        <i class="fas fa-play play-icon"></i>
+                        <a href="${clip.videoSrc}" download="${clip.title.replace(/\s+/g, '_')}.mp4" class="direct-download-btn">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="clip-card-info">
+                        <h3>${clip.title}</h3>
+                    </div>
+                </div>
+            `;
+
+            const videoElement = clipCard.querySelector('video');
+
+            clipCard.addEventListener('mouseenter', () => {
+                videoElement.play().catch(error => console.log("Video autoplay prevented:", error));
+            });
+
+            clipCard.addEventListener('mouseleave', () => {
+                videoElement.pause();
+                videoElement.currentTime = 0;
+            });
+
+            // IMPORTANT: Modified click listener for the entire card
+            clipCard.addEventListener('click', (event) => {
+                // If the click originated from the 'direct-download-btn', let its default action (direct download) occur.
+                // This prevents opening the modal when the explicit download button is clicked.
+                if (event.target.closest('.direct-download-btn')) {
+                    return; 
+                }
+
+                // If the click is anywhere else on the card (thumbnail, play icon, title, etc.),
+                // open the preview modal.
+                openPreviewModal(clip);
+            });
+
+            return clipCard;
+        }
+
+        // --- Clip Preview Modal Logic (Re-introduced) ---
+        function openPreviewModal(clip) {
+            previewVideo.src = clip.videoSrc; // Set the video source for the preview
+            previewVideo.load(); // Load the video
+            previewVideo.play().catch(error => console.log("Video autoplay prevented:", error)); // Attempt to autoplay
+
+            // Set the download link properties for the button inside the modal
+            modalDownloadLink.href = clip.videoSrc;
+            modalDownloadLink.download = `${clip.title.replace(/\s+/g, '_')}.mp4`;
+            
+            clipPreviewModal.classList.add('active'); // Show the modal
+            displayRelatedClips(clip.id); // Populate related clips
+        }
+
+        function closePreviewModal() {
+            previewVideo.pause(); // Pause video when modal closes
+            previewVideo.currentTime = 0; // Reset video to start
+            clipPreviewModal.classList.remove('active'); // Hide modal
+            relatedClipsGrid.innerHTML = '<p style="text-align: center; color: #ccc;">Loading related clips...</p>'; // Clear/reset related clips
+        }
+
+        // Add event listeners for modal closing
+        closePreviewModalBtn.addEventListener('click', closePreviewModal);
+        clipPreviewModal.addEventListener('click', (event) => {
+            // If the click is directly on the overlay background (not content inside), close the modal
+            if (event.target === clipPreviewModal) {
+                closePreviewModal();
+            }
+        });
+
+        // --- Related Clips Logic (Re-introduced) ---
+        function displayRelatedClips(currentClipId) {
+            relatedClipsGrid.innerHTML = ''; // Clear previous related clips
+
+            const availableClips = allClipsData.filter(clip => clip.id !== currentClipId);
+
+            if (availableClips.length === 0) {
+                relatedClipsGrid.innerHTML = '<p style="color: #ccc;">No other clips available.</p>';
+                return;
+            }
+
+            // Shuffle and pick a few related clips
+            const shuffled = availableClips.sort(() => 0.5 - Math.random());
+            const relatedClips = shuffled.slice(0, 6); // Display up to 6 related clips
+
+            relatedClips.forEach(clip => {
+                const relatedCard = document.createElement('div');
+                relatedCard.classList.add('related-clip-card');
+                relatedCard.innerHTML = `
+                    <img src="${clip.thumbnail}" alt="${clip.title} Thumbnail">
+                    <div class="title-overlay">
+                        ${clip.title}
+                    </div>
+                `;
+                // When a related clip is clicked, close current modal and open modal for the new clip
+                relatedCard.addEventListener('click', () => {
+                    closePreviewModal(); 
+                    openPreviewModal(clip); 
+                });
+                relatedClipsGrid.appendChild(relatedCard);
+            });
+        }
+
+
+        // --- Search Bar Logic ---
+        clipSearchInput.addEventListener('keyup', () => {
+            const searchTerm = clipSearchInput.value.toLowerCase().trim();
+            clipGrid.innerHTML = ''; // Clear current grid
+
+            if (searchTerm === '') {
+                currentFilteredClips = [...allClipsData]; // Reset to all clips
+                endOfClipsMessage.style.display = 'none';
+            } else {
+                currentFilteredClips = allClipsData.filter(clip => {
+                    const tags = clip.tags.join(' ').toLowerCase();
+                    const title = clip.title.toLowerCase();
+                    return tags.includes(searchTerm) || title.includes(searchTerm);
+                });
+                if (currentFilteredClips.length === 0) {
+                    clipGrid.innerHTML = '<p style="color: #ccc; font-size: 1.2rem;">No clips found matching your search.</p>';
+                }
+                endOfClipsMessage.style.display = 'none';
+            }
+            currentPage = 0; // Reset current page for new search/filtered results
+            loadInitialClips(); // Load the first page of filtered results (or all if < clipsPerPage)
+        });
+
+        // --- Infinite Scroll Logic ---
+        const sentinel = document.createElement('div');
+        sentinel.id = 'scroll-sentinel';
+        sentinel.style.height = '1px';
+        clipGrid.parentNode.appendChild(sentinel);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !isLoading && currentFilteredClips.length > (currentPage * clipsPerPage)) {
+                    loadMoreClips();
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px 0px 200px 0px',
+            threshold: 0.1
+        });
+
+        // Load clips when the page loads
+        document.addEventListener('DOMContentLoaded', fetchClips);
+    </script>
+</body>
+</html>
