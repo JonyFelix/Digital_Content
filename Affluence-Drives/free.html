@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
         /* Reset */
         *, *::before, *::after {
@@ -157,6 +158,7 @@
             align-items: center;
             cursor: pointer; /* Indicate clickable */
             position: relative; /* For play icon overlay */
+            height: 350px; /* Fixed height for consistent card size */
         }
 
         .clip-card:hover {
@@ -164,60 +166,117 @@
             box-shadow: 0 0 20px gold; /* Gold glow on hover */
         }
 
-        .clip-card img {
+        /* Thumbnail and Video Overlay (for hover play/download) */
+        .clip-card-inner {
+            position: relative;
             width: 100%;
-            height: 350px; /* Fixed height for consistent thumbnail size */
-            object-fit: cover; /* Cover the area, cropping if necessary */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator */
-            margin-bottom: 15px;
+            height: 100%; /* Take full height of clip-card */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column; /* To stack image/video and content */
         }
 
-        /* Play icon overlay */
-        .play-overlay {
+        .clip-card img,
+        .clip-card video {
+            width: 100%;
+            height: 100%; /* Fill the container */
+            object-fit: cover;
+            position: absolute; /* Position thumbnail/video over each other */
+            top: 0;
+            left: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .clip-card video {
+            opacity: 0; /* Hidden by default */
+            z-index: 1; /* Above image on hover */
+        }
+
+        .clip-card:hover video {
+            opacity: 1; /* Show video on hover */
+        }
+
+        /* Play icon overlay (now also has download button) */
+        .clip-card .hover-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 350px; /* Match image height */
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
             display: flex;
+            flex-direction: column; /* Stack play icon and button */
             justify-content: center;
             align-items: center;
+            gap: 15px; /* Space between play icon and button */
             opacity: 0;
             transition: opacity 0.3s ease;
+            z-index: 2; /* Above video */
         }
 
-        .clip-card:hover .play-overlay {
+        .clip-card:hover .hover-overlay {
             opacity: 1;
         }
 
-        .play-overlay i {
+        .hover-overlay .play-icon {
             font-size: 4rem;
             color: gold;
             text-shadow: 0 0 10px rgba(240, 196, 32, 0.7);
         }
 
+        .direct-download-btn {
+            background-color: gold;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none; /* For if it's an anchor tag */
+            display: inline-flex; /* To align icon and text */
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
 
+        .direct-download-btn:hover {
+            background-color: #ffd700;
+            box-shadow: 0 0 15px rgba(240, 196, 32, 0.8);
+        }
+
+        /* Hide description/title from main view for cleaner look */
         .clip-card-info {
-            padding: 0 15px 20px; /* Padding for text and button */
+            position: absolute; /* Position info over the video/image */
+            bottom: 0;
+            left: 0;
             width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); /* Gradient to fade into black */
+            padding: 15px;
             text-align: center;
+            transition: opacity 0.3s ease;
+            z-index: 0; /* Keep it below hover overlay */
+            opacity: 1; /* Visible by default */
+        }
+        .clip-card:hover .clip-card-info {
+            opacity: 0; /* Fade out on hover */
         }
 
         .clip-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.5rem; /* Adjusted for smaller space */
             color: gold; /* Gold color for clip titles */
-            margin-bottom: 10px;
+            margin-bottom: 5px; /* Reduced margin */
             text-align: center;
+            white-space: nowrap; /* Prevent title wrapping */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis */
         }
 
         .clip-card p {
-            font-size: 0.95rem;
-            color: #ccc;
-            margin-bottom: 20px;
-            text-align: center;
+            display: none; /* Hide description by default for cleaner look */
         }
+
 
         /* Button Styles (from index.html) */
         .btn {
@@ -232,6 +291,7 @@
             transition: box-shadow 0.3s ease;
             user-select: none;
             text-transform: uppercase;
+            border: none; /* Ensure no default button border */
         }
 
         .silver-btn {
@@ -300,6 +360,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 20px; /* Space between elements in modal */
         }
 
         .video-player-container {
@@ -335,21 +396,89 @@
             color: gold;
         }
 
-        .video-download-icon {
-            position: absolute;
-            top: 10px;
-            right: 50px; /* Position next to close button */
-            background: none;
+        /* New Download Button in Modal */
+        .free-download-btn {
+            background-color: gold;
+            color: #000;
+            padding: 15px 30px;
             border: none;
-            color: white;
-            font-size: 1.8rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
-            z-index: 2010;
-            transition: color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(240, 196, 32, 0.4);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .video-download-icon:hover {
-            color: gold;
+        .free-download-btn:hover {
+            background-color: #ffd700;
+            box-shadow: 0 6px 20px rgba(240, 196, 32, 0.6);
+        }
+
+        /* Related Clips Section in Modal */
+        .related-clips-section {
+            width: 100%;
+            max-width: 500px; /* Match video player width */
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .related-clips-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .related-clips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Smaller grid for related clips */
+            gap: 15px;
+            justify-items: center;
+        }
+
+        .related-clip-card {
+            background-color: #0d0d0d;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            width: 100%; /* Take full width of its grid column */
+            max-width: 150px; /* Cap size for related clips */
+            height: 150px; /* Fixed height for consistent look */
+            position: relative;
+        }
+
+        .related-clip-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 12px gold;
+        }
+
+        .related-clip-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .related-clip-card .title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* Responsive adjustments */
@@ -377,8 +506,18 @@
             .video-modal-content {
                 padding: 10px;
             }
-            .video-download-icon {
-                right: 40px;
+            .free-download-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .related-clips-section h3 {
+                font-size: 1.5rem;
+            }
+            .related-clips-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+            .related-clip-card {
+                height: 120px;
             }
         }
 
@@ -392,12 +531,15 @@
             .clip-grid {
                 grid-template-columns: 1fr; /* Stack cards on very small screens */
             }
-            .video-download-icon {
-                right: 30px;
-                font-size: 1.5rem;
+            .free-download-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
             .video-modal-close {
                 font-size: 1.8rem;
+            }
+            .related-clips-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
             }
         }
     </style>
@@ -432,6 +574,11 @@
         <div class="clip-grid" id="clipGrid">
             <p id="loadingMessage" style="color: #ccc; font-size: 1.2rem;">Loading clips...</p>
         </div>
+        
+        <div id="endOfClips" style="text-align: center; margin-top: 40px; color: #ccc; display: none;">
+            <p>No more clips to load.</p>
+        </div>
+
     </section>
 
     <footer>
@@ -447,10 +594,20 @@
     <div class="video-modal-overlay" id="videoModal">
         <div class="video-modal-content">
             <button class="video-modal-close" id="closeModal">&times;</button>
-            <a href="#" id="modalDownloadLink" class="video-download-icon" download>
-                <i class="fas fa-arrow-down"></i> </a>
+            
             <div class="video-player-container">
-                <video id="modalVideo" autoplay loop muted playsinline></video>
+                <video id="modalVideo" autoplay loop muted playsinline controls></video>
+            </div>
+
+            <button id="modalDownloadButton" class="btn free-download-btn">
+                <i class="fas fa-download"></i> Free Download
+            </button>
+
+            <div class="related-clips-section">
+                <h3>More Clips You Might Like</h3>
+                <div class="related-clips-grid" id="relatedClipsGrid">
+                    <p style="text-align: center; color: #ccc;">Loading related clips...</p>
+                </div>
             </div>
         </div>
     </div>
@@ -460,112 +617,146 @@
         const videoModal = document.getElementById('videoModal');
         const closeModalBtn = document.getElementById('closeModal');
         const modalVideo = document.getElementById('modalVideo');
-        const modalDownloadLink = document.getElementById('modalDownloadLink');
+        const modalDownloadButton = document.getElementById('modalDownloadButton'); // Changed to button
         const clipGrid = document.getElementById('clipGrid');
         const clipSearchInput = document.getElementById('clipSearch');
         const loadingMessage = document.getElementById('loadingMessage');
+        const relatedClipsGrid = document.getElementById('relatedClipsGrid');
+        const endOfClipsMessage = document.getElementById('endOfClips');
 
-        // Embedded clip data for local testing.
-        // For a large number of clips (1000+), it's recommended to host this data
-        // in a separate JSON file (e.g., clips.json) and fetch it,
-        // as this improves page load performance and maintainability.
-        let allClipsData = [
-            {
-                "id": "clip1",
-                "thumbnail": "https://placehold.co/350x350/111/fff?text=CLIP+THUMBNAIL+1",
-                "videoSrc": "YOUR_TELEGRAM_OR_DRIVE_LINK_1.mp4",
-                "title": "Luxury Car Drive",
-                "description": "A stunning reel showcasing a high-end luxury car on a scenic route. Uploaded: May 30, 2025",
-                "tags": ["luxury", "car", "drive", "road", "speed"]
-            },
-            {
-                "id": "clip2",
-                "thumbnail": "https://placehold.co/350x350/111/fff?text=CLIP+THUMBNAIL+2",
-                "videoSrc": "YOUR_TELEGRAM_OR_DRIVE_LINK_2.mp4",
-                "title": "Elegant Lifestyle",
-                "description": "Capturing moments of sophisticated living and opulent surroundings. Uploaded: May 29, 2025",
-                "tags": ["elegant", "lifestyle", "fashion", "opulent"]
-            },
-            {
-                "id": "clip3",
-                "thumbnail": "https://placehold.co/350x350/111/fff?text=CLIP+THUMBNAIL+3",
-                "videoSrc": "YOUR_TELEGRAM_OR_DRIVE_LINK_3.mp4",
-                "title": "Architectural Grandeur",
-                "description": "Explore the intricate details of breathtaking modern architecture. Uploaded: May 28, 2025",
-                "tags": ["architecture", "building", "modern", "design", "city"]
-            },
-            {
-                "id": "clip4",
-                "thumbnail": "https://placehold.co/350x350/111/fff?text=CLIP+THUMBNAIL+4",
-                "videoSrc": "YOUR_TELEGRAM_OR_DRIVE_LINK_4.mp4",
-                "title": "Nature's Serenity",
-                "description": "A tranquil journey through pristine landscapes, evoking peace and beauty. Uploaded: May 27, 2025",
-                "tags": ["nature", "serenity", "landscape", "peace", "forest"]
+        let allClipsData = []; // This will be populated from clips.json
+        const clipsPerPage = 9; // Number of clips to load at once
+        let currentPage = 0;
+        let isLoading = false; // To prevent multiple simultaneous loads
+
+        // --- Dynamic Clip Loading from clips.json ---
+        async function fetchClips() {
+            if (isLoading) return;
+            isLoading = true;
+            loadingMessage.style.display = 'block'; // Show loading message
+
+            try {
+                const response = await fetch('clips.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                allClipsData = await response.json();
+                allClipsData.sort((a, b) => {
+                    // Assuming 'id' can be used for sorting, or add a 'dateAdded' field
+                    // For example: return new Date(b.dateAdded) - new Date(a.dateAdded);
+                    // For now, reverse order of id for a simple "newest first" effect
+                    return b.id.localeCompare(a.id); 
+                });
+                loadingMessage.style.display = 'none'; // Hide loading message
+                loadMoreClips(); // Load initial set of clips
+            } catch (error) {
+                console.error('Error fetching clips:', error);
+                loadingMessage.textContent = 'Failed to load clips. Please try again later.';
+            } finally {
+                isLoading = false;
             }
-            // Add more clip objects here following the same structure
-        ];
+        }
 
-        // --- Dynamic Clip Loading ---
-        function loadClips() {
-            // Since data is embedded, we just display it directly
-            displayClips(allClipsData);
-            loadingMessage.style.display = 'none'; // Hide loading message
+        function loadMoreClips() {
+            if (isLoading) return; // Prevent multiple loads
+            isLoading = true;
+
+            const startIndex = currentPage * clipsPerPage;
+            const endIndex = startIndex + clipsPerPage;
+            const clipsToLoad = allClipsData.slice(startIndex, endIndex);
+
+            if (clipsToLoad.length === 0) {
+                loadingMessage.style.display = 'none';
+                endOfClipsMessage.style.display = 'block';
+                isLoading = false;
+                return;
+            }
+
+            loadingMessage.style.display = 'block'; // Show loading when new content is being added
+            setTimeout(() => { // Simulate network delay for loading
+                clipsToLoad.forEach(clip => {
+                    clipGrid.appendChild(createClipCard(clip));
+                });
+                currentPage++;
+                isLoading = false;
+                loadingMessage.style.display = 'none'; // Hide loading after content is added
+            }, 500); // Small delay to show loading
         }
 
         function createClipCard(clip) {
             const clipCard = document.createElement('div');
             clipCard.classList.add('clip-card');
-            clipCard.setAttribute('data-video-src', clip.videoSrc);
-            clipCard.setAttribute('data-tags', clip.tags.join(' ')); // Join tags with space for search
+            clipCard.setAttribute('data-id', clip.id); // Store ID for related clips later
 
             clipCard.innerHTML = `
-                <img src="${clip.thumbnail}" alt="${clip.title} Thumbnail">
-                <div class="play-overlay">
-                    <i class="fas fa-play"></i>
-                </div>
-                <div class="clip-card-info">
-                    <h3>${clip.title}</h3>
-                    <p>${clip.description}</p>
+                <div class="clip-card-inner">
+                    <img src="${clip.thumbnail}" alt="${clip.title} Thumbnail">
+                    <video loop muted playsinline preload="none" poster="${clip.thumbnail}">
+                        <source src="${clip.videoSrc}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="hover-overlay">
+                        <i class="fas fa-play play-icon"></i>
+                        <a href="${clip.videoSrc}" download="${clip.title.replace(/\s+/g, '_')}.mp4" class="direct-download-btn">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div class="clip-card-info">
+                        <h3>${clip.title}</h3>
+                    </div>
                 </div>
             `;
 
-            // Add event listener for opening modal to the newly created card
-            clipCard.addEventListener('click', () => {
-                openVideoModal(clip.videoSrc);
+            // Event listeners for hover play/pause
+            const videoElement = clipCard.querySelector('video');
+            const hoverOverlay = clipCard.querySelector('.hover-overlay');
+            const cardInfo = clipCard.querySelector('.clip-card-info');
+
+            clipCard.addEventListener('mouseenter', () => {
+                videoElement.play().catch(error => console.log("Video autoplay prevented:", error));
+            });
+
+            clipCard.addEventListener('mouseleave', () => {
+                videoElement.pause();
+                videoElement.currentTime = 0; // Reset video to start
+            });
+
+            // Event listener for opening modal (clicking anywhere on card except download button)
+            clipCard.addEventListener('click', (event) => {
+                // Check if the click originated from the download button
+                if (!event.target.closest('.direct-download-btn')) {
+                    openVideoModal(clip);
+                }
             });
 
             return clipCard;
         }
 
-        function displayClips(clipsToDisplay) {
-            clipGrid.innerHTML = ''; // Clear existing clips
-            if (clipsToDisplay.length === 0) {
-                clipGrid.innerHTML = '<p style="color: #ccc; font-size: 1.2rem;">No clips found matching your search.</p>';
-                return;
-            }
-            clipsToDisplay.forEach(clip => {
-                clipGrid.appendChild(createClipCard(clip));
-            });
-        }
-
         // --- Video Modal Logic ---
 
-        // Function to open the modal
-        function openVideoModal(videoSrc) {
-            modalVideo.src = videoSrc;
-            modalDownloadLink.href = videoSrc; // Set download link
+        function openVideoModal(clip) {
+            modalVideo.src = clip.videoSrc;
+            modalDownloadButton.onclick = () => { // Use onclick for button
+                const link = document.createElement('a');
+                link.href = clip.videoSrc;
+                link.download = `${clip.title.replace(/\s+/g, '_')}.mp4`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
             videoModal.classList.add('active');
-            modalVideo.play(); // Start playing
+            modalVideo.play().catch(error => console.log("Modal video autoplay prevented:", error));
+            displayRelatedClips(clip.id); // Load related clips
         }
 
-        // Function to close the modal
         function closeVideoModal() {
             modalVideo.pause(); // Pause video when closing
             modalVideo.src = ''; // Clear source to stop loading
             videoModal.classList.remove('active');
+            relatedClipsGrid.innerHTML = '<p style="text-align: center; color: #ccc;">Loading related clips...</p>'; // Clear related clips
         }
 
-        // Event listener for closing modal
+        // Event listeners for closing modal
         closeModalBtn.addEventListener('click', closeVideoModal);
         videoModal.addEventListener('click', (event) => {
             // Close modal if clicked outside the content area
@@ -574,19 +765,97 @@
             }
         });
 
-        // --- Search Bar Logic ---
+        // --- Related Clips Logic ---
+        function displayRelatedClips(currentClipId) {
+            relatedClipsGrid.innerHTML = ''; // Clear previous related clips
 
+            // Filter out the current clip
+            const availableClips = allClipsData.filter(clip => clip.id !== currentClipId);
+
+            if (availableClips.length === 0) {
+                relatedClipsGrid.innerHTML = '<p style="color: #ccc;">No other clips available.</p>';
+                return;
+            }
+
+            // Shuffle and pick a few random related clips
+            const shuffled = availableClips.sort(() => 0.5 - Math.random());
+            const relatedClips = shuffled.slice(0, 6); // Display up to 6 related clips
+
+            relatedClips.forEach(clip => {
+                const relatedCard = document.createElement('div');
+                relatedCard.classList.add('related-clip-card');
+                relatedCard.innerHTML = `
+                    <img src="${clip.thumbnail}" alt="${clip.title} Thumbnail">
+                    <div class="title-overlay">
+                        ${clip.title}
+                    </div>
+                `;
+                relatedCard.addEventListener('click', () => {
+                    closeVideoModal(); // Close current modal
+                    openVideoModal(clip); // Open new modal for related clip
+                });
+                relatedClipsGrid.appendChild(relatedCard);
+            });
+        }
+
+        // --- Search Bar Logic ---
         clipSearchInput.addEventListener('keyup', () => {
             const searchTerm = clipSearchInput.value.toLowerCase().trim();
-            const filteredClips = allClipsData.filter(clip => {
-                const tags = clip.tags.join(' ').toLowerCase();
-                return tags.includes(searchTerm);
-            });
-            displayClips(filteredClips);
+            clipGrid.innerHTML = ''; // Clear current grid
+            currentPage = 0; // Reset pagination
+
+            if (searchTerm === '') {
+                displayClips(allClipsData); // Show all if search is empty
+                endOfClipsMessage.style.display = 'none';
+            } else {
+                const filteredClips = allClipsData.filter(clip => {
+                    const tags = clip.tags.join(' ').toLowerCase();
+                    const title = clip.title.toLowerCase();
+                    return tags.includes(searchTerm) || title.includes(searchTerm);
+                });
+                displayClips(filteredClips);
+                if (filteredClips.length === 0) {
+                    clipGrid.innerHTML = '<p style="color: #ccc; font-size: 1.2rem;">No clips found matching your search.</p>';
+                }
+                endOfClipsMessage.style.display = 'none';
+            }
         });
 
+        function displayClips(clipsToDisplay) {
+            // This function is now mainly for initial display or search results,
+            // Infinite scroll will handle subsequent loading.
+            clipGrid.innerHTML = '';
+            clipsToDisplay.forEach(clip => {
+                clipGrid.appendChild(createClipCard(clip));
+            });
+        }
+
+
+        // --- Infinite Scroll Logic ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !isLoading && allClipsData.length > (currentPage * clipsPerPage)) {
+                    loadMoreClips();
+                }
+            });
+        }, {
+            root: null, // viewport
+            rootMargin: '0px 0px 200px 0px', // Load 200px before reaching end
+            threshold: 0.1 // Trigger when 10% of target is visible
+        });
+
+        // Observe the last element of the content section (footer or a dummy div)
+        // For simple setup, let's observe the loadingMessage or a new dummy element
+        const sentinel = document.createElement('div');
+        sentinel.id = 'scroll-sentinel';
+        sentinel.style.height = '1px'; // Tiny invisible element
+        clipGrid.parentNode.appendChild(sentinel); // Add it after the clipGrid
+
+        observer.observe(sentinel);
+
+
         // Load clips when the page loads
-        document.addEventListener('DOMContentLoaded', loadClips);
+        document.addEventListener('DOMContentLoaded', fetchClips);
     </script>
 </body>
 </html>
