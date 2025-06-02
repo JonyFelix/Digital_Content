@@ -1,0 +1,26 @@
+[
+    {
+        "id": "clip1",
+        "thumbnail": "assets/images/placeholder-thumbnail-1.jpg",
+        "videoSrc": "https://res.cloudinary.com/demo/video/upload/c_scale,w_400/v1/elephants.mp4",
+        "title": "Majestic Elephants",
+        "description": "A beautiful shot of elephants roaming in their natural habitat. Uploaded: May 30, 2025",
+        "tags": ["nature", "animals", "wildlife", "elephants"]
+    },
+    {
+        "id": "clip2",
+        "thumbnail": "assets/images/placeholder-thumbnail-2.jpg",
+        "videoSrc": "https://res.cloudinary.com/demo/video/upload/c_scale,w_400/dog.mp4",
+        "title": "Playful Dog in Park",
+        "description": "An energetic dog enjoying a sunny day at the park. Uploaded: May 29, 2025",
+        "tags": ["animals", "dog", "park", "playful"]
+    },
+    {
+        "id": "clip3",
+        "thumbnail": "assets/images/placeholder-thumbnail-3.jpg",
+        "videoSrc": "https://res.cloudinary.com/demo/video/upload/c_scale,w_400/ski_trip.mp4",
+        "title": "Skiing Adventure",
+        "description": "Thrilling moments from a winter ski trip. Uploaded: May 28, 2025",
+        "tags": ["winter", "sports", "skiing", "snow"]
+    }
+]
