@@ -138,13 +138,11 @@
             box-shadow: 0 0 10px gold; 
         }
 
-        /* Clip Grid - UPDATED for 3 columns on mobile */
+        /* Clip Grid */
         .clip-grid {
             display: grid;
-            /* Base for very small screens (e.g., < 480px): auto-fit for responsiveness */
-            /* This will likely result in 1 or 2 columns on very narrow screens */
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Min card width */
-            gap: 15px; /* Slightly reduced gap for denser layouts */
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+            gap: 15px; 
             justify-items: center;
             width: 95%; 
             max-width: 1600px; 
@@ -418,55 +416,11 @@
             background-color: #ffd700;
             box-shadow: 0 4px 15px rgba(240, 196, 32, 0.5);
         }
-        .modal-button.gemini-btn { 
-             background-color: #4a4a4a; 
-             color: gold;
-        }
-        .modal-button.gemini-btn:hover {
-             background-color: #5a5a5a;
-        }
-
-
+      
         #modalDownloadLink { 
              padding: 15px 30px;
              font-size: 1.1rem;
         }
-
-
-        .gemini-output-container {
-            background-color: #222; 
-            color: #e0e0e0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            width: 100%;
-            max-width: 760px; 
-            text-align: left;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            border: 1px solid #333;
-        }
-        .gemini-output-container h4 {
-            color: gold;
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-family: 'Playfair Display', serif;
-        }
-        .gemini-output-container ul {
-            padding-left: 20px;
-            margin-top: 5px;
-        }
-        .gemini-output-container ul li {
-            margin-bottom: 5px;
-        }
-        .gemini-loading-indicator {
-            display: none; 
-            text-align: center;
-            color: gold;
-            margin: 10px 0;
-            font-style: italic;
-        }
-
 
         /* Related Clips Section in Modal */
         .related-clips-section {
@@ -529,10 +483,6 @@
             text-overflow: ellipsis;
         }
 
-
-        /* Responsive adjustments from original (some might be overridden by new grid rules) */
-        /* The more specific grid rules above for .clip-grid will take precedence at their respective breakpoints. */
-        /* These general rules below will apply outside those specific ranges or if elements are not .clip-grid */
         @media (max-width: 768px) { 
             .page-hero-content h1 { font-size: 2.5rem; }
             .section-title { font-size: 1.8rem; }
@@ -550,11 +500,7 @@
             .page-hero-content h1 { font-size: 2rem; }
             .section-title { font-size: 1.5rem; }
             .clip-card { 
-                /* If the base .clip-grid uses auto-fit with minmax(160px, 1fr), 
-                   cards could be ~160px wide on a 320px screen (if 2 columns fit)
-                   or ~300px wide (if 1 column fits).
-                   Adjust height if it looks too tall for these widths. */
-                 height: 240px; /* Example adjustment for narrower cards */
+                 height: 240px; 
             } 
             .modal-button { padding: 8px 12px; font-size: 0.85rem; }
             #modalDownloadLink { padding: 10px 20px; font-size: 0.9rem; }
@@ -623,27 +569,6 @@
                 <i class="fas fa-download"></i> Free Download
             </a>
             
-            <button id="generateDescriptionBtn" class="modal-button gemini-btn">
-                <i class="fas fa-magic"></i> ✨ Generate Description
-            </button>
-            <button id="suggestIdeasBtn" class="modal-button gemini-btn">
-                <i class="fas fa-lightbulb"></i> ✨ Suggest Video Ideas
-            </button>
-
-            <div class="gemini-loading-indicator" id="geminiLoadingIndicator">
-                <i class="fas fa-spinner fa-spin"></i> Thinking...
-            </div>
-
-            <div id="geminiDescriptionContainer" class="gemini-output-container" style="display: none;">
-                <h4>Generated Description:</h4>
-                <p id="geminiDescriptionText"></p>
-            </div>
-
-            <div id="geminiIdeasContainer" class="gemini-output-container" style="display: none;">
-                <h4>Suggested Video Ideas:</h4>
-                <ul id="geminiIdeasList"></ul>
-            </div>
-
             <div class="related-clips-section">
                 <h3>More Clips You Might Like</h3>
                 <div class="related-clips-grid" id="relatedClipsGrid">
@@ -667,119 +592,11 @@
         const modalDownloadLink = document.getElementById('modalDownloadLink');
         const relatedClipsGrid = document.getElementById('relatedClipsGrid');
 
-        // Gemini API Feature Elements
-        const generateDescriptionBtn = document.getElementById('generateDescriptionBtn');
-        const suggestIdeasBtn = document.getElementById('suggestIdeasBtn');
-        const geminiLoadingIndicator = document.getElementById('geminiLoadingIndicator');
-        const geminiDescriptionContainer = document.getElementById('geminiDescriptionContainer');
-        const geminiDescriptionText = document.getElementById('geminiDescriptionText');
-        const geminiIdeasContainer = document.getElementById('geminiIdeasContainer');
-        const geminiIdeasList = document.getElementById('geminiIdeasList');
-
-        let currentClipForGemini = null; 
-
         let allClipsData = [];
         let currentFilteredClips = [];
-        const clipsPerPage = 10; // Adjusted for potentially more items with 5 columns
+        const clipsPerPage = 10; 
         let currentPage = 0;
         let isLoading = false;
-        let isGeminiLoading = false;
-
-        // --- Gemini API Helper Function ---
-        async function callGeminiAPI(prompt) {
-            if (isGeminiLoading) return; 
-            isGeminiLoading = true;
-            geminiLoadingIndicator.style.display = 'block';
-            geminiDescriptionContainer.style.display = 'none';
-            geminiIdeasContainer.style.display = 'none';
-            geminiDescriptionText.textContent = '';
-            geminiIdeasList.innerHTML = '';
-
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            
-            const payload = {
-                contents: [{ role: "user", parts: [{ text: prompt }] }]
-            };
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorBody = await response.text();
-                    console.error('Gemini API Error Response:', errorBody);
-                    throw new Error(`Gemini API request failed with status ${response.status}: ${response.statusText}`);
-                }
-
-                const result = await response.json();
-                
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    return result.candidates[0].content.parts[0].text;
-                } else {
-                    console.error('Unexpected response structure from Gemini API:', result);
-                    throw new Error('Failed to extract text from Gemini API response.');
-                }
-            } catch (error) {
-                console.error('Error calling Gemini API:', error);
-                geminiDescriptionContainer.style.display = 'block';
-                geminiDescriptionText.innerHTML = `<span style="color: #ff6b6b;">Error: Could not generate content. ${error.message}</span>`;
-                return null; 
-            } finally {
-                isGeminiLoading = false;
-                geminiLoadingIndicator.style.display = 'none';
-            }
-        }
-
-        // --- Generate Description Feature ---
-        if (generateDescriptionBtn) {
-            generateDescriptionBtn.addEventListener('click', async () => {
-                if (!currentClipForGemini) return;
-
-                const { title, tags } = currentClipForGemini;
-                const tagsString = Array.isArray(tags) ? tags.join(', ') : 'none';
-                const prompt = `Generate a short, engaging, and luxurious-sounding description (around 2-3 sentences) for a video clip titled "${title}". The clip is associated with the following themes or tags: ${tagsString}. The description should be suitable for a website showcasing high-end, aspirational video content.`;
-                
-                const description = await callGeminiAPI(prompt);
-
-                if (description) {
-                    geminiDescriptionText.textContent = description;
-                    geminiDescriptionContainer.style.display = 'block';
-                    geminiIdeasContainer.style.display = 'none'; 
-                }
-            });
-        }
-
-        // --- Suggest Video Ideas Feature ---
-        if (suggestIdeasBtn) {
-            suggestIdeasBtn.addEventListener('click', async () => {
-                if (!currentClipForGemini) return;
-
-                const { title, tags } = currentClipForGemini;
-                const tagsString = Array.isArray(tags) ? tags.join(', ') : 'none';
-                const prompt = `Suggest 2-3 creative and concise video project ideas that could effectively use a luxury-themed video clip titled "${title}" with tags: ${tagsString}. Each idea should be a short phrase or sentence. Format the output as a simple list, with each idea on a new line.`;
-
-                const ideasText = await callGeminiAPI(prompt);
-
-                if (ideasText) {
-                    geminiIdeasList.innerHTML = ''; 
-                    const ideasArray = ideasText.split('\n').filter(idea => idea.trim() !== '');
-                    ideasArray.forEach(idea => {
-                        const li = document.createElement('li');
-                        li.textContent = idea.replace(/^- /, '').trim(); 
-                        geminiIdeasList.appendChild(li);
-                    });
-                    geminiIdeasContainer.style.display = 'block';
-                    geminiDescriptionContainer.style.display = 'none'; 
-                }
-            });
-        }
-
 
         // --- Dynamic Clip Loading from clips.json ---
         async function fetchClips() {
@@ -788,17 +605,13 @@
             if(loadingMessage) loadingMessage.style.display = 'block';
 
             try {
-                // Ensure clips.json is in the same directory or adjust path
-                // FIXED: Construct an absolute URL for clips.json
-                const clipsJsonUrl = new URL('clips.json', window.location.href);
-                const response = await fetch(clipsJsonUrl); 
+                // Use an explicit relative path for fetch, assuming clips.json is in the same directory
+                const response = await fetch('./clips.json'); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}, message: ${response.statusText}`);
                 }
                 allClipsData = await response.json();
-                // Sort by dateAdded (newest first). Make sure 'dateAdded' exists and is a valid date string in your clips.json!
                 allClipsData.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
-
                 currentFilteredClips = [...allClipsData]; 
 
                 if(loadingMessage) loadingMessage.style.display = 'none';
@@ -809,7 +622,7 @@
                     loadingMessage.textContent = 'Failed to load clips. Check console for errors.';
                     loadingMessage.style.display = 'block';
                 }
-                 if(clipGrid) clipGrid.innerHTML = '<p style="color: #ff6b6b; font-size: 1.2rem;">Error loading clips. Please ensure clips.json is valid and accessible.</p>';
+                 if(clipGrid) clipGrid.innerHTML = '<p style="color: #ff6b6b; font-size: 1.2rem;">Error loading clips. Please ensure clips.json is valid and accessible in the same directory as the HTML file.</p>';
             } finally {
                 isLoading = false;
             }
@@ -933,8 +746,6 @@
         function openPreviewModal(clip) {
             if (!clipPreviewModal || !previewVideo || !modalDownloadLink) return;
             
-            currentClipForGemini = clip; 
-
             const gridVideoToPause = document.querySelector(`.clip-card[data-id="${clip.id}"] video`);
             if (gridVideoToPause) {
                 gridVideoToPause.pause();
@@ -952,11 +763,6 @@
             modalDownloadLink.download = `${downloadTitle}.mp4`;
             modalDownloadLink.title = `Download ${clip.title || 'Untitled Clip'}`;
 
-            geminiDescriptionContainer.style.display = 'none';
-            geminiIdeasContainer.style.display = 'none';
-            geminiDescriptionText.textContent = '';
-            geminiIdeasList.innerHTML = '';
-
             clipPreviewModal.classList.add('active');
             displayRelatedClips(clip.id, clip.tags || []);
         }
@@ -968,10 +774,6 @@
             previewVideo.src = ""; 
             clipPreviewModal.classList.remove('active');
             if(relatedClipsGrid) relatedClipsGrid.innerHTML = '<p style="text-align: center; color: #ccc;">Loading related clips...</p>';
-            currentClipForGemini = null; 
-            geminiDescriptionContainer.style.display = 'none';
-            geminiIdeasContainer.style.display = 'none';
-            geminiLoadingIndicator.style.display = 'none';
         }
 
         if(closePreviewModalBtn) closePreviewModalBtn.addEventListener('click', closePreviewModal);
