@@ -10,8 +10,8 @@ def modify_cloudinary_url(video_url, transformations=None):
     Args:
         video_url (str): The original Cloudinary video URL.
         transformations (list, optional): A list of transformation strings 
-                                          (e.g., ["fl_attachment", "ac_none", "e_volume:mute"]).
-                                          Defaults to ["fl_attachment", "ac_none"].
+                                         (e.g., ["fl_attachment", "ac_none", "e_volume:mute"]).
+                                         Defaults to ["fl_attachment", "ac_none"].
 
     Returns:
         str: The modified Cloudinary video URL with transformations.
@@ -19,17 +19,17 @@ def modify_cloudinary_url(video_url, transformations=None):
     if transformations is None:
         transformations = ["fl_attachment", "ac_none"] # Default transformations
 
+    active_transformations = []
     # Filter out transformations already present in the URL to avoid duplication
     # This is a simple check; more robust parsing might be needed for complex existing URLs
-    active_transformations = []
     for t in transformations:
         # Check if the core part of the transformation (e.g., "fl_attachment" or "ac_none")
         # is already in the URL as a segment like /fl_attachment/ or /ac_none,
         # or as part of a comma-separated list like /fl_attachment,ac_none/
         # This check is not perfect for all Cloudinary URL structures but covers common cases.
         if f"/{t}/" not in video_url and f",{t}" not in video_url and f"{t}," not in video_url:
-             # A more robust check would be to parse existing transformations if any.
-             # For now, we'll assume simple addition if not obviously present.
+            # A more robust check would be to parse existing transformations if any.
+            # For now, we'll assume simple addition if not obviously present.
             if not any(existing_t.startswith(t.split(':')[0]) for existing_t in video_url.split('/') if ':' in existing_t): # Avoid duplicating e.g. e_volume:0 if e_volume:mute is added
                 active_transformations.append(t)
 
@@ -70,7 +70,7 @@ def modify_cloudinary_url(video_url, transformations=None):
     for t in active_transformations:
         if t not in current_transformations_segment:
             current_transformations_segment.append(t)
-    
+            
     final_transform_string = ",".join(current_transformations_segment)
     
     if final_transform_string:
@@ -143,3 +143,6 @@ def generate_new_clips_json():
 
 if __name__ == "__main__":
     generate_new_clips_json()
+    # Adding this line to keep the session alive until user presses Enter
+    input("\nPress Enter to exit the session...")
+    
