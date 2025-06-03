@@ -138,15 +138,41 @@
             box-shadow: 0 0 10px gold; 
         }
 
-        /* Clip Grid */
+        /* Clip Grid - UPDATED */
         .clip-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; 
-            justify-items: center; 
-            max-width: 1200px; 
-            margin: 0 auto; 
+            /* Default: auto-fit for responsiveness on smaller screens */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Allows flexible number of columns */
+            gap: 20px; /* Adjusted gap */
+            justify-items: center;
+            width: 95%; /* Use percentage for better fluidity relative to parent */
+            max-width: 1600px; /* Set a max-width for the grid itself on very large screens */
+            margin: 0 auto;
         }
+
+        /* For larger screens, aim for 5 columns */
+        @media (min-width: 1300px) { /* Breakpoint for 5 columns, adjust as needed based on desired card width */
+            .clip-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+         @media (min-width: 1024px) and (max-width: 1299px) { /* For tablet to smaller desktop, 4 columns */
+            .clip-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) { /* For smaller tablets, 3 columns */
+            .clip-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+         @media (min-width: 480px) and (max-width: 767px) { /* For large mobile, 2 columns */
+            .clip-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        /* For small mobile, auto-fit with minmax will likely result in 1 or 2 columns */
+
 
         .clip-card {
             background-color: #111; 
@@ -154,14 +180,14 @@
             overflow: hidden; 
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%; 
-            max-width: 350px; 
+            width: 100%; /* Clip card takes full width of its grid column */
+            /* max-width: 350px; /* This can be removed if 1fr handles sizing well, or adjusted */
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer; 
             position: relative; 
-            height: 350px; 
+            height: 300px; /* Adjusted height for potentially narrower cards */
         }
 
         .clip-card:hover {
@@ -211,7 +237,7 @@
         }
 
         .hover-overlay .play-icon {
-            font-size: 4rem; 
+            font-size: 3rem; /* Slightly smaller play icon if cards are smaller */
             color: gold;
             text-shadow: 0 0 10px rgba(240, 196, 32, 0.7);
         }
@@ -219,10 +245,10 @@
         .direct-download-btn {
             background-color: gold;
             color: #000; 
-            padding: 10px 20px;
+            padding: 8px 15px; /* Adjusted padding */
             border: none;
             border-radius: 5px;
-            font-size: 1rem;
+            font-size: 0.9rem; /* Adjusted font size */
             font-weight: bold;
             cursor: pointer;
             text-decoration: none; 
@@ -243,7 +269,7 @@
             left: 0;
             width: 100%;
             background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); 
-            padding: 15px;
+            padding: 10px; /* Adjusted padding */
             text-align: center;
             z-index: 3; 
             opacity: 1; 
@@ -251,7 +277,7 @@
 
         .clip-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem; /* Adjusted font size */
             color: gold;
             margin: 0; 
             text-align: center;
@@ -323,7 +349,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px; /* Adjusted gap */
+            gap: 15px; 
             overflow-y: auto; 
         }
 
@@ -364,13 +390,13 @@
             color: gold;
         }
 
-        .modal-button { /* General style for modal buttons */
+        .modal-button { 
             background-color: gold;
             color: #000;
-            padding: 10px 20px; /* Slightly smaller padding for AI buttons */
+            padding: 10px 20px; 
             border: none;
             border-radius: 8px;
-            font-size: 0.95rem; /* Slightly smaller font for AI buttons */
+            font-size: 0.95rem; 
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
@@ -381,14 +407,14 @@
             box-shadow: 0 2px 10px rgba(240, 196, 32, 0.3);
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
-            margin-top: 5px; /* Add some margin between buttons */
+            margin-top: 5px; 
         }
         .modal-button:hover {
             background-color: #ffd700;
             box-shadow: 0 4px 15px rgba(240, 196, 32, 0.5);
         }
-        .modal-button.gemini-btn { /* Specific style for Gemini buttons if needed */
-             background-color: #4a4a4a; /* Darker button for Gemini features */
+        .modal-button.gemini-btn { 
+             background-color: #4a4a4a; 
              color: gold;
         }
         .modal-button.gemini-btn:hover {
@@ -396,20 +422,20 @@
         }
 
 
-        #modalDownloadLink { /* Keep original download button style distinct */
+        #modalDownloadLink { 
              padding: 15px 30px;
              font-size: 1.1rem;
         }
 
 
         .gemini-output-container {
-            background-color: #222; /* Darker background for output */
+            background-color: #222; 
             color: #e0e0e0;
             padding: 15px;
             border-radius: 8px;
             margin-top: 10px;
             width: 100%;
-            max-width: 760px; /* Match video player width */
+            max-width: 760px; 
             text-align: left;
             font-size: 0.9rem;
             line-height: 1.6;
@@ -429,7 +455,7 @@
             margin-bottom: 5px;
         }
         .gemini-loading-indicator {
-            display: none; /* Hidden by default */
+            display: none; 
             text-align: center;
             color: gold;
             margin: 10px 0;
@@ -499,8 +525,8 @@
         }
 
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
+        /* Responsive adjustments from original (some might be overridden by new grid rules) */
+        @media (max-width: 768px) { /* This will be affected by the more specific grid rules above */
             .page-hero-content h1 { font-size: 2.5rem; }
             .section-title { font-size: 1.8rem; }
             .nav-bar { flex-direction: column; padding: 15px 5%; }
@@ -511,21 +537,19 @@
             #modalDownloadLink { padding: 12px 25px; font-size: 1rem; }
             .modal-close { font-size: 2rem; top: 5px; right: 10px; }
             .related-clips-section h3 { font-size: 1.5rem; }
-            .related-clips-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
-            .related-clip-card { height: 100px; }
+            /* .related-clips-grid rules are already responsive with auto-fit */
+            /* .related-clip-card height might need adjustment based on new grid */
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 480px) { /* This will be affected by the more specific grid rules above */
             .page-hero-content h1 { font-size: 2rem; }
             .section-title { font-size: 1.5rem; }
-            .clip-grid { grid-template-columns: 1fr; gap: 20px; }
-            .clip-card { height: 300px; }
+            /* .clip-grid already handled by auto-fit and more specific media queries */
+            .clip-card { height: 280px; /* Adjust if needed for single column */ }
             .modal-button { padding: 8px 12px; font-size: 0.85rem; }
             #modalDownloadLink { padding: 10px 20px; font-size: 0.9rem; }
             .modal-close { font-size: 1.8rem; }
-            .related-clips-grid { grid-template-columns: repeat(2, 1fr); }
-            .related-clip-card { height: 90px; }
-            .gemini-output-container { font-size: 0.85rem; }
+            /* .related-clips-grid rules are already responsive with auto-fit */
         }
     </style>
 </head>
@@ -586,7 +610,8 @@
                 </video>
             </div>
 
-            <a id="modalDownloadLink" class="modal-button" href="#" download> <i class="fas fa-download"></i> Free Download
+            <a id="modalDownloadLink" class="modal-button" href="#" download> 
+                <i class="fas fa-download"></i> Free Download
             </a>
             
             <button id="generateDescriptionBtn" class="modal-button gemini-btn">
@@ -642,27 +667,26 @@
         const geminiIdeasContainer = document.getElementById('geminiIdeasContainer');
         const geminiIdeasList = document.getElementById('geminiIdeasList');
 
-        let currentClipForGemini = null; // Store current clip data for Gemini functions
+        let currentClipForGemini = null; 
 
         let allClipsData = [];
         let currentFilteredClips = [];
-        const clipsPerPage = 9;
+        const clipsPerPage = 9; // This might need adjustment if you want to load more items per "page" for a 5-column layout
         let currentPage = 0;
         let isLoading = false;
         let isGeminiLoading = false;
 
         // --- Gemini API Helper Function ---
         async function callGeminiAPI(prompt) {
-            if (isGeminiLoading) return; // Prevent multiple simultaneous calls
+            if (isGeminiLoading) return; 
             isGeminiLoading = true;
             geminiLoadingIndicator.style.display = 'block';
-            // Hide previous results
             geminiDescriptionContainer.style.display = 'none';
             geminiIdeasContainer.style.display = 'none';
             geminiDescriptionText.textContent = '';
             geminiIdeasList.innerHTML = '';
 
-            const apiKey = ""; // Per instructions, leave empty for Canvas environment
+            const apiKey = ""; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             
             const payload = {
@@ -694,10 +718,9 @@
                 }
             } catch (error) {
                 console.error('Error calling Gemini API:', error);
-                // Display error to the user in one of the containers
                 geminiDescriptionContainer.style.display = 'block';
                 geminiDescriptionText.innerHTML = `<span style="color: #ff6b6b;">Error: Could not generate content. ${error.message}</span>`;
-                return null; // Indicate failure
+                return null; 
             } finally {
                 isGeminiLoading = false;
                 geminiLoadingIndicator.style.display = 'none';
@@ -705,44 +728,48 @@
         }
 
         // --- Generate Description Feature ---
-        generateDescriptionBtn.addEventListener('click', async () => {
-            if (!currentClipForGemini) return;
+        if (generateDescriptionBtn) {
+            generateDescriptionBtn.addEventListener('click', async () => {
+                if (!currentClipForGemini) return;
 
-            const { title, tags } = currentClipForGemini;
-            const tagsString = Array.isArray(tags) ? tags.join(', ') : 'none';
-            const prompt = `Generate a short, engaging, and luxurious-sounding description (around 2-3 sentences) for a video clip titled "${title}". The clip is associated with the following themes or tags: ${tagsString}. The description should be suitable for a website showcasing high-end, aspirational video content.`;
-            
-            const description = await callGeminiAPI(prompt);
+                const { title, tags } = currentClipForGemini;
+                const tagsString = Array.isArray(tags) ? tags.join(', ') : 'none';
+                const prompt = `Generate a short, engaging, and luxurious-sounding description (around 2-3 sentences) for a video clip titled "${title}". The clip is associated with the following themes or tags: ${tagsString}. The description should be suitable for a website showcasing high-end, aspirational video content.`;
+                
+                const description = await callGeminiAPI(prompt);
 
-            if (description) {
-                geminiDescriptionText.textContent = description;
-                geminiDescriptionContainer.style.display = 'block';
-                geminiIdeasContainer.style.display = 'none'; // Hide other container
-            }
-        });
+                if (description) {
+                    geminiDescriptionText.textContent = description;
+                    geminiDescriptionContainer.style.display = 'block';
+                    geminiIdeasContainer.style.display = 'none'; 
+                }
+            });
+        }
 
         // --- Suggest Video Ideas Feature ---
-        suggestIdeasBtn.addEventListener('click', async () => {
-            if (!currentClipForGemini) return;
+        if (suggestIdeasBtn) {
+            suggestIdeasBtn.addEventListener('click', async () => {
+                if (!currentClipForGemini) return;
 
-            const { title, tags } = currentClipForGemini;
-            const tagsString = Array.isArray(tags) ? tags.join(', ') : 'none';
-            const prompt = `Suggest 2-3 creative and concise video project ideas that could effectively use a luxury-themed video clip titled "${title}" with tags: ${tagsString}. Each idea should be a short phrase or sentence. Format the output as a simple list, with each idea on a new line.`;
+                const { title, tags } = currentClipForGemini;
+                const tagsString = Array.isArray(tags) ? tags.join(', ') : 'none';
+                const prompt = `Suggest 2-3 creative and concise video project ideas that could effectively use a luxury-themed video clip titled "${title}" with tags: ${tagsString}. Each idea should be a short phrase or sentence. Format the output as a simple list, with each idea on a new line.`;
 
-            const ideasText = await callGeminiAPI(prompt);
+                const ideasText = await callGeminiAPI(prompt);
 
-            if (ideasText) {
-                geminiIdeasList.innerHTML = ''; // Clear previous ideas
-                const ideasArray = ideasText.split('\n').filter(idea => idea.trim() !== '');
-                ideasArray.forEach(idea => {
-                    const li = document.createElement('li');
-                    li.textContent = idea.replace(/^- /, '').trim(); // Clean up list formatting if any
-                    geminiIdeasList.appendChild(li);
-                });
-                geminiIdeasContainer.style.display = 'block';
-                geminiDescriptionContainer.style.display = 'none'; // Hide other container
-            }
-        });
+                if (ideasText) {
+                    geminiIdeasList.innerHTML = ''; 
+                    const ideasArray = ideasText.split('\n').filter(idea => idea.trim() !== '');
+                    ideasArray.forEach(idea => {
+                        const li = document.createElement('li');
+                        li.textContent = idea.replace(/^- /, '').trim(); 
+                        geminiIdeasList.appendChild(li);
+                    });
+                    geminiIdeasContainer.style.display = 'block';
+                    geminiDescriptionContainer.style.display = 'none'; 
+                }
+            });
+        }
 
 
         // --- Dynamic Clip Loading from clips.json ---
@@ -892,7 +919,7 @@
         function openPreviewModal(clip) {
             if (!clipPreviewModal || !previewVideo || !modalDownloadLink) return;
             
-            currentClipForGemini = clip; // Store current clip for Gemini functions
+            currentClipForGemini = clip; 
 
             const gridVideoToPause = document.querySelector(`.clip-card[data-id="${clip.id}"] video`);
             if (gridVideoToPause) {
@@ -911,7 +938,6 @@
             modalDownloadLink.download = `${downloadTitle}.mp4`;
             modalDownloadLink.title = `Download ${clip.title || 'Untitled Clip'}`;
 
-            // Reset Gemini output areas
             geminiDescriptionContainer.style.display = 'none';
             geminiIdeasContainer.style.display = 'none';
             geminiDescriptionText.textContent = '';
@@ -928,8 +954,7 @@
             previewVideo.src = ""; 
             clipPreviewModal.classList.remove('active');
             if(relatedClipsGrid) relatedClipsGrid.innerHTML = '<p style="text-align: center; color: #ccc;">Loading related clips...</p>';
-            currentClipForGemini = null; // Clear stored clip
-            // Hide Gemini outputs
+            currentClipForGemini = null; 
             geminiDescriptionContainer.style.display = 'none';
             geminiIdeasContainer.style.display = 'none';
             geminiLoadingIndicator.style.display = 'none';
