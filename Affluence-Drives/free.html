@@ -75,16 +75,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 0; /* Behind navbar if navbar has higher z-index */
-            /* Ensure hero-bg.jpg is in assets/images or adjust path */
+            z-index: 0; 
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://placehold.co/1920x1080/000000/333333?text=Hero+Background') no-repeat center center/cover;
-            /* Fallback background color if image fails to load */
             background-color: #111;
         }
 
         .page-hero-content {
             position: relative;
-            z-index: 2; /* Above background, below navbar if overlapping */
+            z-index: 2; 
             text-align: center;
             padding: 2rem;
             color: #fff;
@@ -95,16 +93,16 @@
             font-size: 3.5rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: gold; /* Gold color for the main title */
-            text-shadow: 0 0 6px #f0c420aa, 0 0 12px #f0c42088, 0 0 20px #f0c42055; /* Glow effect */
+            color: gold; 
+            text-shadow: 0 0 6px #f0c420aa, 0 0 12px #f0c42088, 0 0 20px #f0c42055;
         }
 
         /* Content Section */
         .content-section {
             padding: 60px 5%;
-            background-color: #000; /* Solid black background */
+            background-color: #000; 
             color: white;
-            text-align: center; /* Center content within the section */
+            text-align: center; 
         }
 
         .section-title {
@@ -113,7 +111,7 @@
             margin-bottom: 40px;
             font-weight: 700;
             letter-spacing: 0.05em;
-            color: white; /* White color for section titles */
+            color: white; 
         }
 
         /* Search Bar */
@@ -127,55 +125,55 @@
             max-width: 500px;
             padding: 12px 20px;
             border: 2px solid gold;
-            border-radius: 25px; /* Rounded corners */
-            background-color: #1a1a1a; /* Dark background for input */
+            border-radius: 25px; 
+            background-color: #1a1a1a; 
             color: white;
             font-size: 1.1rem;
-            outline: none; /* Remove default outline */
+            outline: none; 
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .search-container input[type="text"]:focus {
-            border-color: #ffd700; /* Brighter gold on focus */
-            box-shadow: 0 0 10px gold; /* Glow effect on focus */
+            border-color: #ffd700; 
+            box-shadow: 0 0 10px gold; 
         }
 
         /* Clip Grid */
         .clip-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid for clips */
-            gap: 30px; /* Space between clip cards */
-            justify-items: center; /* Center items in their grid cells */
-            max-width: 1200px; /* Max width of the grid */
-            margin: 0 auto; /* Center the grid itself */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+            justify-items: center; 
+            max-width: 1200px; 
+            margin: 0 auto; 
         }
 
         .clip-card {
-            background-color: #111; /* Darker background for cards */
-            border-radius: 10px; /* Rounded corners for cards */
-            overflow: hidden; /* Important for rounded corners on video/image */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+            background-color: #111; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%; /* Ensure cards take full width of their grid column */
-            max-width: 350px; /* Max width for larger screens, adjust as needed */
+            width: 100%; 
+            max-width: 350px; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            cursor: pointer; /* Indicate clickable */
-            position: relative; /* For play icon overlay and info */
-            height: 350px; /* Fixed height for consistent card size */
+            cursor: pointer; 
+            position: relative; 
+            height: 350px; 
         }
 
         .clip-card:hover {
-            transform: translateY(-5px); /* Slight lift on hover */
-            box-shadow: 0 0 20px gold; /* Gold glow on hover */
+            transform: translateY(-5px); 
+            box-shadow: 0 0 20px gold; 
         }
 
         .clip-card-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Ensures video corners are rounded if card is */
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
         }
@@ -183,102 +181,99 @@
         .clip-card video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cover the area, might crop */
-            position: absolute; /* For positioning within clip-card-inner */
+            object-fit: cover; 
+            position: absolute; 
             top: 0;
             left: 0;
-            /* Video is always visible and playing muted */
             opacity: 1;
             z-index: 1;
         }
 
-        /* Hover overlay for play icon and download button */
         .clip-card .hover-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+            background-color: rgba(0, 0, 0, 0.5); 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 15px; /* Space between icon and button */
-            opacity: 0; /* Hidden by default */
+            gap: 15px; 
+            opacity: 0; 
             transition: opacity 0.3s ease;
-            z-index: 2; /* Above the video */
+            z-index: 2; 
         }
 
         .clip-card:hover .hover-overlay {
-            opacity: 1; /* Show on hover */
+            opacity: 1; 
         }
 
         .hover-overlay .play-icon {
-            font-size: 4rem; /* Large play icon */
+            font-size: 4rem; 
             color: gold;
             text-shadow: 0 0 10px rgba(240, 196, 32, 0.7);
         }
 
         .direct-download-btn {
             background-color: gold;
-            color: #000; /* Black text on gold button */
+            color: #000; 
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            text-decoration: none; /* Remove underline from link */
-            display: inline-flex; /* For icon alignment */
+            text-decoration: none; 
+            display: inline-flex; 
             align-items: center;
-            gap: 8px; /* Space between icon and text */
+            gap: 8px; 
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .direct-download-btn:hover {
-            background-color: #ffd700; /* Brighter gold on hover */
+            background-color: #ffd700; 
             box-shadow: 0 0 15px rgba(240, 196, 32, 0.8);
         }
 
-        /* Clip Info (Title) - Always visible at the bottom */
         .clip-card-info {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); /* Gradient for text readability */
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); 
             padding: 15px;
             text-align: center;
-            z-index: 3; /* Ensure it's above video and hover overlay if needed */
-            opacity: 1; /* Always visible */
+            z-index: 3; 
+            opacity: 1; 
         }
 
         .clip-card h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             color: gold;
-            margin: 0; /* Remove default margin */
+            margin: 0; 
             text-align: center;
-            white-space: nowrap; /* Prevent title wrapping */
-            overflow: hidden; /* Hide overflow */
-            text-overflow: ellipsis; /* Add ellipsis for long titles */
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
         }
 
         .clip-card p {
-            display: none; /* Description still hidden as per original */
+            display: none; 
         }
 
         /* Footer */
         footer {
-            background-color: #000; /* Solid black */
-            color: #ccc; /* Light grey text */
+            background-color: #000; 
+            color: #ccc; 
             text-align: center;
             padding: 40px 5%;
             font-size: 0.95rem;
             line-height: 1.6;
-            user-select: none; /* Prevent text selection in footer */
-            border-top: 1px solid #222; /* Subtle separator */
+            user-select: none; 
+            border-top: 1px solid #222; 
         }
 
         footer h3 {
@@ -290,7 +285,7 @@
         .footer-bottom {
             margin-top: 30px;
             font-size: 0.9rem;
-            color: #aaa; /* Darker grey for copyright */
+            color: #aaa; 
         }
 
         /* Clip Preview Modal */
@@ -300,14 +295,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9); /* Dark overlay */
+            background-color: rgba(0, 0, 0, 0.9); 
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 2000; /* High z-index to be on top */
+            z-index: 2000; 
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* Delay visibility transition */
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s; 
         }
 
         .clip-preview-modal-overlay.active {
@@ -318,27 +313,26 @@
 
         .clip-preview-modal-content {
             position: relative;
-            background-color: #1a1a1a; /* Dark background for modal content */
+            background-color: #1a1a1a; 
             border-radius: 10px;
-            box-shadow: 0 0 30px rgba(240, 196, 32, 0.5); /* Gold glow */
+            box-shadow: 0 0 30px rgba(240, 196, 32, 0.5); 
             padding: 20px;
-            width: 90vw; /* Responsive width */
-            max-width: 800px; /* Max width for the video player area */
-            max-height: 90vh; /* Responsive height */
+            width: 90vw; 
+            max-width: 800px; 
+            max-height: 90vh; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px; /* Space between elements in modal */
-            overflow-y: auto; /* Allow scrolling for content that exceeds modal height */
+            gap: 15px; /* Adjusted gap */
+            overflow-y: auto; 
         }
 
         .video-player-container {
             width: 100%;
-            /* max-width: 800px; /* Max width for the video player */
-            aspect-ratio: 16 / 9; /* Maintain 16:9 aspect ratio */
-            background-color: #000; /* Black background for video area */
+            aspect-ratio: 16 / 9; 
+            background-color: #000; 
             border-radius: 8px;
-            overflow: hidden; /* Clip video to rounded corners */
+            overflow: hidden; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -347,8 +341,8 @@
         #previewVideo {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Ensure video fits within container, shows all content */
-            border-radius: 8px; /* Match container's border radius */
+            object-fit: contain; 
+            border-radius: 8px; 
         }
 
         .modal-close {
@@ -358,11 +352,11 @@
             background: none;
             border: none;
             color: white;
-            font-size: 2.5rem; /* Larger close button */
+            font-size: 2.5rem; 
             cursor: pointer;
-            z-index: 2010; /* Above modal content */
+            z-index: 2010; 
             transition: color 0.3s ease;
-            padding: 5px; /* Easier to click */
+            padding: 5px; 
             line-height: 1;
         }
 
@@ -370,35 +364,82 @@
             color: gold;
         }
 
-        /* Download Button in Modal */
-        .free-download-btn-modal {
+        .modal-button { /* General style for modal buttons */
             background-color: gold;
             color: #000;
-            padding: 15px 30px;
+            padding: 10px 20px; /* Slightly smaller padding for AI buttons */
             border: none;
             border-radius: 8px;
-            font-size: 1.1rem;
+            font-size: 0.95rem; /* Slightly smaller font for AI buttons */
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(240, 196, 32, 0.4);
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(240, 196, 32, 0.3);
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
+            margin-top: 5px; /* Add some margin between buttons */
+        }
+        .modal-button:hover {
+            background-color: #ffd700;
+            box-shadow: 0 4px 15px rgba(240, 196, 32, 0.5);
+        }
+        .modal-button.gemini-btn { /* Specific style for Gemini buttons if needed */
+             background-color: #4a4a4a; /* Darker button for Gemini features */
+             color: gold;
+        }
+        .modal-button.gemini-btn:hover {
+             background-color: #5a5a5a;
         }
 
-        .free-download-btn-modal:hover {
-            background-color: #ffd700;
-            box-shadow: 0 6px 20px rgba(240, 196, 32, 0.6);
+
+        #modalDownloadLink { /* Keep original download button style distinct */
+             padding: 15px 30px;
+             font-size: 1.1rem;
         }
+
+
+        .gemini-output-container {
+            background-color: #222; /* Darker background for output */
+            color: #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 760px; /* Match video player width */
+            text-align: left;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            border: 1px solid #333;
+        }
+        .gemini-output-container h4 {
+            color: gold;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+        .gemini-output-container ul {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+        .gemini-output-container ul li {
+            margin-bottom: 5px;
+        }
+        .gemini-loading-indicator {
+            display: none; /* Hidden by default */
+            text-align: center;
+            color: gold;
+            margin: 10px 0;
+            font-style: italic;
+        }
+
 
         /* Related Clips Section in Modal */
         .related-clips-section {
             width: 100%;
-            /* max-width: 500px; /* Max width for related clips grid */
             text-align: center;
             margin-top: 20px;
         }
@@ -418,7 +459,7 @@
         }
 
         .related-clip-card {
-            background-color: #0d0d0d; /* Very dark background */
+            background-color: #0d0d0d; 
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -426,7 +467,7 @@
             cursor: pointer;
             width: 100%;
             max-width: 150px;
-            height: 120px; /* Adjusted height for better aspect */
+            height: 120px; 
             position: relative;
         }
 
@@ -435,8 +476,8 @@
             box-shadow: 0 0 12px gold;
         }
 
-        .related-clip-card video, /* Changed from img to video */
-        .related-clip-card img { /* Keep img for potential fallback or thumbnail display */
+        .related-clip-card video, 
+        .related-clip-card img { 
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -460,76 +501,31 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .page-hero-content h1 {
-                font-size: 2.5rem;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
-            .nav-bar {
-                flex-direction: column; /* Stack logo and nav links */
-                padding: 15px 5%;
-            }
-            .nav-bar ul {
-                margin-top: 15px;
-                gap: 20px; /* Reduce gap for smaller screens */
-                flex-wrap: wrap; /* Allow nav items to wrap */
-                justify-content: center;
-            }
-            .search-container input[type="text"] {
-                width: 90%;
-            }
-            .clip-preview-modal-content {
-                padding: 15px; /* Slightly less padding */
-                width: 95vw;
-            }
-            .free-download-btn-modal {
-                padding: 12px 25px;
-                font-size: 1rem;
-            }
-            .modal-close {
-                font-size: 2rem; /* Adjust close button size */
-                top: 5px;
-                right: 10px;
-            }
-            .related-clips-section h3 {
-                font-size: 1.5rem;
-            }
-            .related-clips-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-            .related-clip-card {
-                height: 100px; /* Adjust related card height */
-            }
+            .page-hero-content h1 { font-size: 2.5rem; }
+            .section-title { font-size: 1.8rem; }
+            .nav-bar { flex-direction: column; padding: 15px 5%; }
+            .nav-bar ul { margin-top: 15px; gap: 20px; flex-wrap: wrap; justify-content: center; }
+            .search-container input[type="text"] { width: 90%; }
+            .clip-preview-modal-content { padding: 15px; width: 95vw; gap: 10px;}
+            .modal-button { padding: 8px 15px; font-size: 0.9rem; }
+            #modalDownloadLink { padding: 12px 25px; font-size: 1rem; }
+            .modal-close { font-size: 2rem; top: 5px; right: 10px; }
+            .related-clips-section h3 { font-size: 1.5rem; }
+            .related-clips-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+            .related-clip-card { height: 100px; }
         }
 
         @media (max-width: 480px) {
-            .page-hero-content h1 {
-                font-size: 2rem;
-            }
-            .section-title {
-                font-size: 1.5rem;
-            }
-            .clip-grid {
-                grid-template-columns: 1fr; /* Single column for very small screens */
-                gap: 20px;
-            }
-            .clip-card {
-                height: 300px; /* Adjust card height */
-            }
-            .free-download-btn-modal {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            .modal-close {
-                font-size: 1.8rem;
-            }
-            .related-clips-grid {
-                grid-template-columns: repeat(2, 1fr); /* Two columns for related clips */
-            }
-             .related-clip-card {
-                height: 90px;
-            }
+            .page-hero-content h1 { font-size: 2rem; }
+            .section-title { font-size: 1.5rem; }
+            .clip-grid { grid-template-columns: 1fr; gap: 20px; }
+            .clip-card { height: 300px; }
+            .modal-button { padding: 8px 12px; font-size: 0.85rem; }
+            #modalDownloadLink { padding: 10px 20px; font-size: 0.9rem; }
+            .modal-close { font-size: 1.8rem; }
+            .related-clips-grid { grid-template-columns: repeat(2, 1fr); }
+            .related-clip-card { height: 90px; }
+            .gemini-output-container { font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -567,7 +563,7 @@
         <div id="endOfClips" style="text-align: center; margin-top: 40px; color: #ccc; display: none;">
             <p>No more clips to load.</p>
         </div>
-        </section>
+    </section>
 
     <footer>
         <div class="footer-about">
@@ -590,9 +586,29 @@
                 </video>
             </div>
 
-            <a id="modalDownloadLink" class="free-download-btn-modal" href="#" download>
-                <i class="fas fa-download"></i> Free Download
+            <a id="modalDownloadLink" class="modal-button" href="#" download> <i class="fas fa-download"></i> Free Download
             </a>
+            
+            <button id="generateDescriptionBtn" class="modal-button gemini-btn">
+                <i class="fas fa-magic"></i> ✨ Generate Description
+            </button>
+            <button id="suggestIdeasBtn" class="modal-button gemini-btn">
+                <i class="fas fa-lightbulb"></i> ✨ Suggest Video Ideas
+            </button>
+
+            <div class="gemini-loading-indicator" id="geminiLoadingIndicator">
+                <i class="fas fa-spinner fa-spin"></i> Thinking...
+            </div>
+
+            <div id="geminiDescriptionContainer" class="gemini-output-container" style="display: none;">
+                <h4>Generated Description:</h4>
+                <p id="geminiDescriptionText"></p>
+            </div>
+
+            <div id="geminiIdeasContainer" class="gemini-output-container" style="display: none;">
+                <h4>Suggested Video Ideas:</h4>
+                <ul id="geminiIdeasList"></ul>
+            </div>
 
             <div class="related-clips-section">
                 <h3>More Clips You Might Like</h3>
@@ -613,15 +629,121 @@
         // Elements for the preview modal
         const clipPreviewModal = document.getElementById('clipPreviewModal');
         const closePreviewModalBtn = document.getElementById('closePreviewModal');
-        const previewVideo = document.getElementById('previewVideo'); // Main video player in modal
+        const previewVideo = document.getElementById('previewVideo'); 
         const modalDownloadLink = document.getElementById('modalDownloadLink');
         const relatedClipsGrid = document.getElementById('relatedClipsGrid');
+
+        // Gemini API Feature Elements
+        const generateDescriptionBtn = document.getElementById('generateDescriptionBtn');
+        const suggestIdeasBtn = document.getElementById('suggestIdeasBtn');
+        const geminiLoadingIndicator = document.getElementById('geminiLoadingIndicator');
+        const geminiDescriptionContainer = document.getElementById('geminiDescriptionContainer');
+        const geminiDescriptionText = document.getElementById('geminiDescriptionText');
+        const geminiIdeasContainer = document.getElementById('geminiIdeasContainer');
+        const geminiIdeasList = document.getElementById('geminiIdeasList');
+
+        let currentClipForGemini = null; // Store current clip data for Gemini functions
 
         let allClipsData = [];
         let currentFilteredClips = [];
         const clipsPerPage = 9;
         let currentPage = 0;
         let isLoading = false;
+        let isGeminiLoading = false;
+
+        // --- Gemini API Helper Function ---
+        async function callGeminiAPI(prompt) {
+            if (isGeminiLoading) return; // Prevent multiple simultaneous calls
+            isGeminiLoading = true;
+            geminiLoadingIndicator.style.display = 'block';
+            // Hide previous results
+            geminiDescriptionContainer.style.display = 'none';
+            geminiIdeasContainer.style.display = 'none';
+            geminiDescriptionText.textContent = '';
+            geminiIdeasList.innerHTML = '';
+
+            const apiKey = ""; // Per instructions, leave empty for Canvas environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ role: "user", parts: [{ text: prompt }] }]
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error('Gemini API Error Response:', errorBody);
+                    throw new Error(`Gemini API request failed with status ${response.status}: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error('Unexpected response structure from Gemini API:', result);
+                    throw new Error('Failed to extract text from Gemini API response.');
+                }
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                // Display error to the user in one of the containers
+                geminiDescriptionContainer.style.display = 'block';
+                geminiDescriptionText.innerHTML = `<span style="color: #ff6b6b;">Error: Could not generate content. ${error.message}</span>`;
+                return null; // Indicate failure
+            } finally {
+                isGeminiLoading = false;
+                geminiLoadingIndicator.style.display = 'none';
+            }
+        }
+
+        // --- Generate Description Feature ---
+        generateDescriptionBtn.addEventListener('click', async () => {
+            if (!currentClipForGemini) return;
+
+            const { title, tags } = currentClipForGemini;
+            const tagsString = Array.isArray(tags) ? tags.join(', ') : 'none';
+            const prompt = `Generate a short, engaging, and luxurious-sounding description (around 2-3 sentences) for a video clip titled "${title}". The clip is associated with the following themes or tags: ${tagsString}. The description should be suitable for a website showcasing high-end, aspirational video content.`;
+            
+            const description = await callGeminiAPI(prompt);
+
+            if (description) {
+                geminiDescriptionText.textContent = description;
+                geminiDescriptionContainer.style.display = 'block';
+                geminiIdeasContainer.style.display = 'none'; // Hide other container
+            }
+        });
+
+        // --- Suggest Video Ideas Feature ---
+        suggestIdeasBtn.addEventListener('click', async () => {
+            if (!currentClipForGemini) return;
+
+            const { title, tags } = currentClipForGemini;
+            const tagsString = Array.isArray(tags) ? tags.join(', ') : 'none';
+            const prompt = `Suggest 2-3 creative and concise video project ideas that could effectively use a luxury-themed video clip titled "${title}" with tags: ${tagsString}. Each idea should be a short phrase or sentence. Format the output as a simple list, with each idea on a new line.`;
+
+            const ideasText = await callGeminiAPI(prompt);
+
+            if (ideasText) {
+                geminiIdeasList.innerHTML = ''; // Clear previous ideas
+                const ideasArray = ideasText.split('\n').filter(idea => idea.trim() !== '');
+                ideasArray.forEach(idea => {
+                    const li = document.createElement('li');
+                    li.textContent = idea.replace(/^- /, '').trim(); // Clean up list formatting if any
+                    geminiIdeasList.appendChild(li);
+                });
+                geminiIdeasContainer.style.display = 'block';
+                geminiDescriptionContainer.style.display = 'none'; // Hide other container
+            }
+        });
+
 
         // --- Dynamic Clip Loading from clips.json ---
         async function fetchClips() {
@@ -630,16 +752,13 @@
             if(loadingMessage) loadingMessage.style.display = 'block';
 
             try {
-                // Ensure clips.json is in the same directory or adjust path
-                const response = await fetch('clips.json'); // CRITICAL: Path to clips.json
+                const response = await fetch('./clips.json'); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}, message: ${response.statusText}`);
                 }
                 allClipsData = await response.json();
-                // Sort by dateAdded (newest first). Make sure 'dateAdded' exists and is a valid date string in your clips.json!
                 allClipsData.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
-
-                currentFilteredClips = [...allClipsData]; // Initialize with all data
+                currentFilteredClips = [...allClipsData]; 
 
                 if(loadingMessage) loadingMessage.style.display = 'none';
                 loadInitialClips();
@@ -657,7 +776,7 @@
 
         function loadInitialClips() {
             if(!clipGrid) return;
-            clipGrid.innerHTML = ''; // Clear existing clips
+            clipGrid.innerHTML = ''; 
             currentPage = 0;
             if(endOfClipsMessage) endOfClipsMessage.style.display = 'none';
 
@@ -676,11 +795,10 @@
                 if(endOfClipsMessage) endOfClipsMessage.style.display = 'block';
             }
 
-            // If there are more clips than the initial load, keep observing for infinite scroll
             if (currentFilteredClips.length > clipsPerPage && observer && sentinel) {
                 observer.observe(sentinel);
             } else if (observer) {
-                observer.disconnect(); // No need for infinite scroll if all clips are loaded or observer not setup
+                observer.disconnect(); 
             }
         }
 
@@ -688,7 +806,7 @@
             if (isLoading || currentFilteredClips.length <= (currentPage * clipsPerPage)) {
                 if (observer && currentFilteredClips.length <= (currentPage * clipsPerPage)) {
                     if(endOfClipsMessage) endOfClipsMessage.style.display = 'block';
-                    observer.disconnect(); // No more clips, stop observing
+                    observer.disconnect(); 
                 }
                 return;
             }
@@ -708,7 +826,6 @@
                 return;
             }
 
-            // Simulate network delay for loading indicator visibility
             setTimeout(() => {
                 clipsToLoad.forEach(clip => {
                     if(clipGrid) clipGrid.appendChild(createClipCard(clip));
@@ -722,9 +839,8 @@
         function createClipCard(clip) {
             const clipCard = document.createElement('div');
             clipCard.classList.add('clip-card');
-            clipCard.setAttribute('data-id', clip.id); // For identifying the card
+            clipCard.setAttribute('data-id', clip.id); 
 
-            // Sanitize title for download attribute
             const downloadTitle = clip.title ? clip.title.replace(/\s+/g, '_').replace(/[^\w.-]/g, '') : 'video_clip';
 
             clipCard.innerHTML = `
@@ -735,7 +851,7 @@
                     </video>
                     <div class="hover-overlay">
                         <i class="fas fa-play play-icon"></i>
-                        <a href="${clip.videoSrc}" download="${downloadTitle}.mp4" class="direct-download-btn" title="Download ${clip.title}">
+                        <a href="${clip.videoSrc}" download="${downloadTitle}.mp4" class="direct-download-btn" title="Download ${clip.title || 'Untitled Clip'}">
                             <i class="fas fa-download"></i> Download
                         </a>
                     </div>
@@ -748,54 +864,46 @@
             const videoElement = clipCard.querySelector('video');
 
             if (videoElement) {
-                // Attempt to autoplay the video muted as soon as it's ready
                 const playVideo = () => {
                     videoElement.play().catch(error => {
-                        // Autoplay was prevented. This is common.
                         // console.warn(`Grid video (${clip.title || 'untitled'}) autoplay failed:`, error.name, error.message);
                     });
                 };
 
-                if (videoElement.readyState >= 3) { // HAVE_FUTURE_DATA or HAVE_ENOUGH_DATA
+                if (videoElement.readyState >= 3) { 
                      playVideo();
                 } else {
                     videoElement.addEventListener('loadedmetadata', playVideo);
-                    videoElement.addEventListener('canplaythrough', playVideo); // Another event to try
+                    videoElement.addEventListener('canplaythrough', playVideo); 
                 }
-                 // Fallback for browsers that might not fire events reliably for autoplay
                 setTimeout(playVideo, 300);
             }
 
-
             clipCard.addEventListener('click', (event) => {
-                // If the click originated from the 'direct-download-btn', let its default action occur.
                 if (event.target.closest('.direct-download-btn')) {
-                     if (videoElement) videoElement.pause(); // Pause video if downloading from card
-                    return; // Do not open modal
+                     if (videoElement) videoElement.pause(); 
+                    return; 
                 }
-                // If the click is anywhere else on the card, open the preview modal.
                 openPreviewModal(clip);
             });
-
             return clipCard;
         }
 
-        // --- Clip Preview Modal Logic ---
         function openPreviewModal(clip) {
             if (!clipPreviewModal || !previewVideo || !modalDownloadLink) return;
+            
+            currentClipForGemini = clip; // Store current clip for Gemini functions
 
-            // Pause the corresponding grid video when opening the modal
             const gridVideoToPause = document.querySelector(`.clip-card[data-id="${clip.id}"] video`);
             if (gridVideoToPause) {
                 gridVideoToPause.pause();
             }
 
             previewVideo.src = clip.videoSrc;
-            previewVideo.muted = true; // Modal video also starts muted as per last request
-            previewVideo.load(); // Load the new source
+            previewVideo.muted = true; 
+            previewVideo.load(); 
             previewVideo.play().catch(error => {
                 // console.log("Modal video autoplay prevented (muted):", error.name, error.message);
-                // User might need to click play if browser blocks muted autoplay without prior interaction
             });
 
             const downloadTitle = clip.title ? clip.title.replace(/\s+/g, '_').replace(/[^\w.-]/g, '') : 'video_clip';
@@ -803,6 +911,11 @@
             modalDownloadLink.download = `${downloadTitle}.mp4`;
             modalDownloadLink.title = `Download ${clip.title || 'Untitled Clip'}`;
 
+            // Reset Gemini output areas
+            geminiDescriptionContainer.style.display = 'none';
+            geminiIdeasContainer.style.display = 'none';
+            geminiDescriptionText.textContent = '';
+            geminiIdeasList.innerHTML = '';
 
             clipPreviewModal.classList.add('active');
             displayRelatedClips(clip.id, clip.tags || []);
@@ -812,43 +925,42 @@
             if (!clipPreviewModal || !previewVideo) return;
             previewVideo.pause();
             previewVideo.currentTime = 0;
-            previewVideo.src = ""; // Release video resource
-            // previewVideo.muted = true; // Already set in openPreviewModal, good to ensure
+            previewVideo.src = ""; 
             clipPreviewModal.classList.remove('active');
             if(relatedClipsGrid) relatedClipsGrid.innerHTML = '<p style="text-align: center; color: #ccc;">Loading related clips...</p>';
+            currentClipForGemini = null; // Clear stored clip
+            // Hide Gemini outputs
+            geminiDescriptionContainer.style.display = 'none';
+            geminiIdeasContainer.style.display = 'none';
+            geminiLoadingIndicator.style.display = 'none';
         }
 
         if(closePreviewModalBtn) closePreviewModalBtn.addEventListener('click', closePreviewModal);
         if(clipPreviewModal) {
             clipPreviewModal.addEventListener('click', (event) => {
-                // If the click is directly on the overlay background (not content inside), close the modal
                 if (event.target === clipPreviewModal) {
                     closePreviewModal();
                 }
             });
         }
 
-        // --- Related Clips Logic ---
         function displayRelatedClips(currentClipId, currentClipTags = []) {
             if(!relatedClipsGrid) return;
             relatedClipsGrid.innerHTML = '';
 
             let relatedSource = allClipsData.filter(clip => clip.id !== currentClipId);
-
-            // Simple relevance: prefer clips sharing at least one tag
             const relevantByTag = relatedSource.filter(clip =>
                 Array.isArray(clip.tags) && Array.isArray(currentClipTags) &&
                 currentClipTags.some(tag => clip.tags.includes(tag))
             );
 
             let clipsToShow;
-            if (relevantByTag.length >= 4) { // Prioritize tagged if enough found
+            if (relevantByTag.length >= 4) { 
                 clipsToShow = relevantByTag.sort(() => 0.5 - Math.random()).slice(0, 4);
-            } else { // Otherwise, supplement with random non-tagged or fill up
+            } else { 
                 const otherClips = relatedSource.filter(clip => !relevantByTag.includes(clip));
                 clipsToShow = [...relevantByTag, ...otherClips.sort(() => 0.5 - Math.random())].slice(0, 4);
             }
-
 
             if (clipsToShow.length === 0) {
                 relatedClipsGrid.innerHTML = '<p style="color: #ccc;">No other clips available.</p>';
@@ -858,7 +970,6 @@
             clipsToShow.forEach(clip => {
                 const relatedCard = document.createElement('div');
                 relatedCard.classList.add('related-clip-card');
-                const downloadTitle = clip.title ? clip.title.replace(/\s+/g, '_').replace(/[^\w.-]/g, '') : 'video_clip';
                 relatedCard.innerHTML = `
                     <video muted loop playsinline preload="metadata" poster="${clip.thumbnailSrc || 'https://placehold.co/150x120/000000/111111?text=Loading'}">
                         <source src="${clip.videoSrc}" type="video/mp4">
@@ -881,29 +992,24 @@
                         relatedVideoElement.addEventListener('loadedmetadata', playRelatedVideo);
                         relatedVideoElement.addEventListener('canplaythrough', playRelatedVideo);
                     }
-                    setTimeout(playRelatedVideo, 300); // Fallback
+                    setTimeout(playRelatedVideo, 300); 
                 }
 
                 relatedCard.addEventListener('click', () => {
-                    // Pause and reset the current main video in the modal before loading a new one
                     if (previewVideo) {
                         previewVideo.pause();
                         previewVideo.currentTime = 0;
                         previewVideo.src = "";
-                        // previewVideo.muted = true; // Will be set in openPreviewModal
                     }
-                    openPreviewModal(clip); // Open the new clip
+                    openPreviewModal(clip); 
                 });
                 relatedClipsGrid.appendChild(relatedCard);
             });
         }
 
-
-        // --- Search Bar Logic ---
         if(clipSearchInput) {
-            clipSearchInput.addEventListener('input', () => { // 'input' is better than 'keyup' for paste, etc.
+            clipSearchInput.addEventListener('input', () => { 
                 const searchTerm = clipSearchInput.value.toLowerCase().trim();
-
                 if (searchTerm === '') {
                     currentFilteredClips = [...allClipsData];
                 } else {
@@ -913,24 +1019,21 @@
                         return tagsString.includes(searchTerm) || title.includes(searchTerm);
                     });
                 }
-                loadInitialClips(); // Reload grid with filtered results
+                loadInitialClips(); 
             });
         }
 
-        // --- Infinite Scroll Logic ---
         const sentinel = document.createElement('div');
         sentinel.id = 'scroll-sentinel';
-        sentinel.style.height = '1px'; // Invisible element to observe
+        sentinel.style.height = '1px'; 
         const contentSectionForSentinel = document.getElementById('free-clips-content');
         if (contentSectionForSentinel) {
             contentSectionForSentinel.appendChild(sentinel);
         } else {
-            // Fallback if the specific section isn't found, though it should be.
-            // document.body.appendChild(sentinel);
             console.error("Content section for sentinel not found. Infinite scroll might not work.");
         }
 
-        let observer; // Declare observer in a broader scope
+        let observer; 
 
         if ('IntersectionObserver' in window && sentinel) {
             observer = new IntersectionObserver((entries) => {
@@ -938,24 +1041,27 @@
                     if (entry.isIntersecting && !isLoading && currentFilteredClips.length > (currentPage * clipsPerPage)) {
                         loadMoreClips();
                     } else if (entry.isIntersecting && currentFilteredClips.length <= (currentPage * clipsPerPage)) {
-                        // All current filtered clips loaded, show end message if not already shown
                         if(endOfClipsMessage && endOfClipsMessage.style.display === 'none' && currentFilteredClips.length > 0) {
                             endOfClipsMessage.style.display = 'block';
                         }
-                        observer.unobserve(sentinel); // Stop observing if no more to load
+                        if (observer && sentinel.parentNode) { 
+                           try {
+                             observer.unobserve(sentinel); 
+                           } catch (e) {
+                             // console.warn("Error unobserving sentinel:", e);
+                           }
+                        }
                     }
                 });
             }, {
-                root: null, // Use the viewport as the root
-                rootMargin: '0px 0px 200px 0px', // Load when 200px from bottom of viewport
-                threshold: 0.01 // Trigger when even a tiny bit is visible
+                root: null, 
+                rootMargin: '0px 0px 200px 0px', 
+                threshold: 0.01 
             });
         } else {
             console.warn("IntersectionObserver not supported or sentinel not found. Infinite scroll disabled.");
-            // Optionally, implement a "Load More" button as a fallback here.
         }
 
-        // Load clips when the page loads
         document.addEventListener('DOMContentLoaded', fetchClips);
     </script>
 </body>
