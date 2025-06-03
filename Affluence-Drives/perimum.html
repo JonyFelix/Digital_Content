@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Premium Clips | Affluence Drives</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body {
+            margin: 0; padding: 0; scroll-padding-top: 100px;
+            background-color: #000; color: white; font-family: 'Roboto', sans-serif;
+        }
+
+        .nav-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; background-color: #000; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+        .logo-img { width: 50px; height: auto; }
+        .nav-bar ul { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
+        .nav-bar a { text-decoration: none; color: #fff; font-weight: bold; transition: color .3s ease; }
+        .nav-bar a:hover { color: gold; }
+        .nav-bar a.active { color: gold; }
+
+        .page-hero {
+            position: relative; height: 40vh; width: 100%; overflow: hidden;
+            display: flex; align-items: center; justify-content: center; z-index: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,.9)), url('https://placehold.co/1920x1080/000/333?text=Hero+Background') no-repeat center/cover;
+            background-color: #111;
+        }
+        .page-hero-content { position: relative; z-index: 2; text-align: center; padding: 2rem; color: #fff; }
+        .page-hero-content h1 {
+            font-family: 'Playfair Display', serif; font-size: 3.5rem; text-transform: uppercase;
+            letter-spacing: .1em; color: gold; text-shadow: 0 0 6px #f0c420aa, 0 0 12px #f0c42088, 0 0 20px #f0c42055;
+        }
+
+        .content-section { padding: 60px 5%; background-color: #000; color: white; text-align: center; }
+        .section-title {
+            font-size: 2.2rem; text-align: center; margin-bottom: 40px; font-weight: 700;
+            letter-spacing: .05em; color: white;
+        }
+
+        .search-container { margin-bottom: 40px; text-align: center; }
+        .search-container input[type="text"] {
+            width: 80%; max-width: 500px; padding: 12px 20px; border: 2px solid gold;
+            border-radius: 25px; background-color: #1a1a1a; color: white; font-size: 1.1rem;
+            outline: none; transition: border-color .3s ease, box-shadow .3s ease;
+        }
+        .search-container input[type="text"]:focus { border-color: #ffd700; box-shadow: 0 0 10px gold; }
+
+        .coming-soon-message {
+            font-family: 'Playfair Display', serif; font-size: 3rem; color: gold;
+            text-shadow: 0 0 10px rgba(240,196,32,.7); margin-top: 50px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: .1em; padding: 20px;
+        }
+
+        .clip-grid, #loadingMessage, #endOfClips { display: none; }
+
+        footer {
+            background-color: #000; color: #ccc; text-align: center; padding: 40px 5%;
+            font-size: .95rem; line-height: 1.6; user-select: none; border-top: 1px solid #222;
+        }
+        footer h3 { color: white; font-weight: 700; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; font-size: .9rem; color: #aaa; }
+
+        .clip-preview-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,.9); display: flex; justify-content: center; align-items: center;
+            z-index: 2000; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s linear .3s;
+        }
+        .clip-preview-modal-overlay.active { opacity: 1; visibility: visible; transition: opacity .3s ease, visibility 0s linear 0s; }
+        .clip-preview-modal-content {
+            position: relative; background-color: #1a1a1a; border-radius: 10px;
+            box-shadow: 0 0 30px rgba(240,196,32,.5); padding: 20px; width: 90vw; max-width: 800px;
+            max-height: 90vh; display: flex; flex-direction: column; align-items: center; gap: 15px;
+            overflow-y: auto;
+        }
+        .video-player-container {
+            width: 100%; aspect-ratio: 16/9; background-color: #000; border-radius: 8px;
+            overflow: hidden; display: flex; justify-content: center; align-items: center;
+        }
+        #previewVideo { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
+        .modal-close {
+            position: absolute; top: 10px; right: 15px; background: none; border: none;
+            color: white; font-size: 2.5rem; cursor: pointer; z-index: 2010; transition: color .3s ease;
+            padding: 5px; line-height: 1;
+        }
+        .modal-close:hover { color: gold; }
+        .modal-button {
+            background-color: gold; color: #000; padding: 10px 20px; border: none; border-radius: 8px;
+            font-size: .95rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 1px; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 2px 10px rgba(240,196,32,.3); transition: background-color .3s ease, box-shadow .3s ease;
+            text-decoration: none; margin-top: 5px;
+        }
+        .modal-button:hover { background-color: #ffd700; box-shadow: 0 4px 15px rgba(240,196,32,.5); }
+        #modalDownloadLink { padding: 15px 30px; font-size: 1.1rem; }
+        .related-clips-section { width: 100%; text-align: center; margin-top: 20px; }
+        .related-clips-section h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: white; margin-bottom: 20px; }
+        .related-clips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 15px; justify-items: center; }
+        .related-clip-card {
+            background-color: #0d0d0d; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,.3);
+            transition: transform .2s ease, box-shadow .2s ease; cursor: pointer; width: 100%; max-width: 150px;
+            height: 120px; position: relative;
+        }
+        .related-clip-card:hover { transform: translateY(-3px); box-shadow: 0 0 12px gold; }
+        .related-clip-card video, .related-clip-card img { width: 100%; height: 100%; object-fit: cover; }
+        .related-clip-card .title-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,.7);
+            color: white; padding: 8px; font-size: .85rem; text-align: center; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+
+        @media (max-width: 768px) {
+            .page-hero-content h1 { font-size: 2.5rem; }
+            .section-title { font-size: 1.8rem; }
+            .nav-bar { flex-direction: column; padding: 15px 5%; }
+            .nav-bar ul { margin-top: 15px; gap: 20px; flex-wrap: wrap; justify-content: center; }
+            .search-container input[type="text"] { width: 90%; }
+            .clip-preview-modal-content { padding: 15px; width: 95vw; gap: 10px;}
+            .modal-button { padding: 8px 15px; font-size: .9rem; }
+            #modalDownloadLink { padding: 12px 25px; font-size: 1rem; }
+            .modal-close { font-size: 2rem; top: 5px; right: 10px; }
+            .related-clips-section h3 { font-size: 1.5rem; }
+            .coming-soon-message { font-size: 2.2rem; margin-top: 30px; }
+        }
+        @media (max-width: 480px) {
+            .page-hero-content h1 { font-size: 2rem; }
+            .section-title { font-size: 1.5rem; }
+            .clip-card { height: 240px; }
+            .modal-button { padding: 8px 12px; font-size: .85rem; }
+            #modalDownloadLink { padding: 10px 20px; font-size: .9rem; }
+            .modal-close { font-size: 1.8rem; }
+            .coming-soon-message { font-size: 1.8rem; margin-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-bar">
+        <div class="logo">
+            <img src="assets/images/feature.png" alt="Affluence Drives Logo" class="logo-img" onerror="this.onerror=null;this.src='https://placehold.co/50x50/FFFFFF/000000?text=LOGO';" />
+        </div>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="free.html">FREE CLIPS</a></li>
+            <li><a href="premium.html" class="active">PREMIUM CLIPS</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+        </ul>
+    </nav>
+
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>PREMIUM CLIPS</h1>
+        </div>
+    </section>
+
+    <section id="premium-clips-content" class="content-section">
+        <h2 class="section-title">EXPERIENCE TRUE AFFLUENCE</h2>
+
+        <div class="search-container">
+            <input type="text" id="clipSearch" placeholder="Search clips by tags (e.g., luxury, yacht, mansion...)">
+        </div>
+
+        <div class="coming-soon-message">
+            Coming Soon!
+        </div>
+
+        <div class="clip-grid" id="clipGrid"></div>
+        <p id="loadingMessage"></p>
+        <div id="endOfClips"></div>
+    </section>
+
+    <footer>
+        <div class="footer-about">
+            <h3>Affluence Drives</h3>
+            <p>Your destination for cinematic luxury content that captivates and inspires.</p>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Affluence Drives. All rights reserved.
+        </div>
+    </footer>
+
+    <div class="clip-preview-modal-overlay" id="clipPreviewModal">
+        <div class="clip-preview-modal-content">
+            <button class="modal-close" id="closePreviewModal" aria-label="Close preview">&times;</button>
+            <div class="video-player-container">
+                <video id="previewVideo" controls playsinline loop muted>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <a id="modalDownloadLink" class="modal-button" href="#" download> 
+                <i class="fas fa-download"></i> Free Download
+            </a>
+            <div class="related-clips-section">
+                <h3>More Clips You Might Like</h3>
+                <div class="related-clips-grid" id="relatedClipsGrid">
+                    <p style="text-align: center; color: #ccc;">Loading related clips...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const clipPreviewModal = document.getElementById('clipPreviewModal');
+        const closePreviewModalBtn = document.getElementById('closePreviewModal');
+        const previewVideo = document.getElementById('previewVideo');
+
+        function closePreviewModal() {
+            if (!clipPreviewModal || !previewVideo) return;
+            previewVideo.pause();
+            previewVideo.currentTime = 0;
+            previewVideo.src = ""; 
+            clipPreviewModal.classList.remove('active');
+        }
+
+        if(closePreviewModalBtn) closePreviewModalBtn.addEventListener('click', closePreviewModal);
+        if(clipPreviewModal) {
+            clipPreviewModal.addEventListener('click', (event) => {
+                if (event.target === clipPreviewModal) {
+                    closePreviewModal();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
