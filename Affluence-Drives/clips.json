@@ -12,5 +12,45 @@
             "luxury",
             "rich"
         ]
+    },
+    {
+        "id": "clip_ae1c73da20",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment/v1748927912/snapins-ai_3616443705980221193_xl7axc.mp4",
+        "title": "Qatar_rich_life",
+        "tags": [
+            "qatar",
+            "richlife",
+            "luxury",
+            "building",
+            "hotel"
+        ],
+        "dateAdded": "2025-06-03"
+    },
+    {
+        "id": "clip_92991a22c1",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment/v1748927912/snapins-ai_3590384849983167831_ly8jmj.mp4",
+        "title": "Luxuryship_in_sea",
+        "tags": [
+            "ship",
+            "luxury ship",
+            "boat",
+            "sea",
+            "evening"
+        ],
+        "dateAdded": "2025-06-03"
+    },
+    {
+        "id": "clip_548ff46fb6",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment/v1748927913/snapins-ai_3628209399791398470_sjvlws.mp4",
+        "title": "Prosche_Car",
+        "tags": [
+            "car",
+            "luxury car",
+            "purple",
+            "outside",
+            "porsche",
+            "rich"
+        ],
+        "dateAdded": "2025-06-03"
     }
 ]
