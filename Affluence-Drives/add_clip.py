@@ -2,29 +2,82 @@ import json
 import uuid
 from datetime import datetime
 
-def add_fl_attachment_to_url(video_url):
+def modify_cloudinary_url(video_url, transformations=None):
     """
-    Adds 'fl_attachment/' to a Cloudinary video URL for direct download.
-    Example:
-    Input:  https://res.cloudinary.com/demo/video/upload/dog.mp4
-    Output: https://res.cloudinary.com/demo/video/upload/fl_attachment/dog.mp4
+    Adds specified Cloudinary transformations to a video URL.
+    By default, it adds 'fl_attachment' and 'ac_none'.
 
-    Input:  https://res.cloudinary.com/demo/video/upload/w_200,h_150/cat.mp4
-    Output: https://res.cloudinary.com/demo/video/upload/fl_attachment/w_200,h_150/cat.mp4
-    (Cloudinary is flexible; fl_attachment generally works well when inserted like this,
-    even before other transformations. It signals the intent to download.)
+    Args:
+        video_url (str): The original Cloudinary video URL.
+        transformations (list, optional): A list of transformation strings 
+                                          (e.g., ["fl_attachment", "ac_none", "e_volume:mute"]).
+                                          Defaults to ["fl_attachment", "ac_none"].
+
+    Returns:
+        str: The modified Cloudinary video URL with transformations.
     """
-    if "fl_attachment" in video_url:  # Check if already present
+    if transformations is None:
+        transformations = ["fl_attachment", "ac_none"] # Default transformations
+
+    # Filter out transformations already present in the URL to avoid duplication
+    # This is a simple check; more robust parsing might be needed for complex existing URLs
+    active_transformations = []
+    for t in transformations:
+        # Check if the core part of the transformation (e.g., "fl_attachment" or "ac_none")
+        # is already in the URL as a segment like /fl_attachment/ or /ac_none,
+        # or as part of a comma-separated list like /fl_attachment,ac_none/
+        # This check is not perfect for all Cloudinary URL structures but covers common cases.
+        if f"/{t}/" not in video_url and f",{t}" not in video_url and f"{t}," not in video_url:
+             # A more robust check would be to parse existing transformations if any.
+             # For now, we'll assume simple addition if not obviously present.
+            if not any(existing_t.startswith(t.split(':')[0]) for existing_t in video_url.split('/') if ':' in existing_t): # Avoid duplicating e.g. e_volume:0 if e_volume:mute is added
+                active_transformations.append(t)
+
+    if not active_transformations: # If all desired transformations seem to be present or no new ones to add
         return video_url
     
     upload_marker = "/video/upload/"
     if upload_marker not in video_url:
-        print(f"Warning: '{upload_marker}' not found in URL. Cannot automatically add fl_attachment. URL unchanged: {video_url}")
+        print(f"Warning: '{upload_marker}' not found in URL. Cannot automatically add transformations. URL unchanged: {video_url}")
         return video_url
     
-    # Replace the first occurrence of '/video/upload/' 
-    # with '/video/upload/fl_attachment/'
-    return video_url.replace(upload_marker, upload_marker + "fl_attachment/", 1)
+    # Correctly find the position after "/video/upload/"
+    parts = video_url.split(upload_marker, 1)
+    base_url = parts[0] + upload_marker
+    path_after_upload = parts[1]
+
+    # Check if there are existing transformations (version number like v12345 is not a transformation)
+    existing_transforms_and_path = path_after_upload.split('/')
+    path_segments = []
+    current_transformations_segment = []
+
+    # Separate existing transformations from the actual path/version
+    # This logic assumes transformations are before version numbers or the main path
+    version_or_public_id_started = False
+    for segment in existing_transforms_and_path:
+        if segment.startswith('v') and segment[1:].isdigit(): # Likely a version number
+            version_or_public_id_started = True
+            path_segments.append(segment)
+        elif version_or_public_id_started: # If version/id started, rest is path
+            path_segments.append(segment)
+        elif ',' in segment or ':' in segment or segment in ["fl_attachment", "ac_none"]: # Likely existing transformations
+            current_transformations_segment.extend(s.strip() for s in segment.split(','))
+        else: # Part of the public_id or folder structure
+            version_or_public_id_started = True
+            path_segments.append(segment)
+            
+    # Add new transformations, ensuring no duplicates with what was parsed
+    for t in active_transformations:
+        if t not in current_transformations_segment:
+            current_transformations_segment.append(t)
+    
+    final_transform_string = ",".join(current_transformations_segment)
+    
+    if final_transform_string:
+        return base_url + final_transform_string + "/" + "/".join(path_segments)
+    else: # Should not happen if active_transformations is not empty, but as a fallback
+        return base_url + "/".join(path_segments)
+
 
 def generate_new_clips_json():
     """
@@ -33,6 +86,7 @@ def generate_new_clips_json():
     newly_added_clips = []
     print("\n--- Generate JSON for New Clips ---")
     print("This script will help you create JSON entries for your new video clips.")
+    print("It will automatically add 'fl_attachment' (for direct download) and 'ac_none' (to remove audio).")
     print("The output will be JSON text that you can copy and paste into your clips.json file.")
 
     while True:
@@ -42,8 +96,9 @@ def generate_new_clips_json():
             print("Video URL cannot be empty. Please try again.")
             continue
 
-        video_url_for_download = add_fl_attachment_to_url(video_url_original)
-        print(f"  Modified Video URL (for download): {video_url_for_download}")
+        # Apply default transformations: direct download and no audio
+        video_url_transformed = modify_cloudinary_url(video_url_original) 
+        print(f"  Modified Video URL (for download, no audio): {video_url_transformed}")
 
         title = input("Enter Clip Title: ").strip()
         if not title:
@@ -53,25 +108,18 @@ def generate_new_clips_json():
         tags_input = input("Enter Tags (comma-separated, e.g., luxury,car,drive): ").strip()
         tags = [tag.strip().lower() for tag in tags_input.split(',') if tag.strip()]
 
-        # Generate a unique ID
         clip_id = f"clip_{uuid.uuid4().hex[:10]}"
-
-        # Get current date for dateAdded
         date_added = datetime.now().strftime("%Y-%m-%d")
 
         new_clip = {
             "id": clip_id,
-            "videoSrc": video_url_for_download, # Use the modified URL
+            "videoSrc": video_url_transformed, # Use the modified URL
             "title": title,
             "tags": tags,
             "dateAdded": date_added
-            # thumbnailSrc and description are intentionally omitted as per your request
+            # thumbnailSrc and description are omitted as per your request
         }
         
-        # Store the original URL if you want it for other purposes, 
-        # but videoSrc should be the one for download.
-        # new_clip["originalVideoUrl"] = video_url_original # Optional: if you want to keep it
-
         newly_added_clips.append(new_clip)
 
         print(f"\n  Clip '{title}' (ID: {clip_id}) prepared.")
@@ -86,7 +134,6 @@ def generate_new_clips_json():
         print("If your clips.json is empty, you can use this as the entire content.")
         print("If you have existing clips, you'll need to manually merge this array into your existing JSON array structure.")
         
-        # Output the list of newly added clips as a JSON array string
         json_output = json.dumps(newly_added_clips, indent=4)
         print("\n```json")
         print(json_output)
