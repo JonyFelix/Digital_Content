@@ -138,40 +138,46 @@
             box-shadow: 0 0 10px gold; 
         }
 
-        /* Clip Grid - UPDATED */
+        /* Clip Grid - UPDATED for 3 columns on mobile */
         .clip-grid {
             display: grid;
-            /* Default: auto-fit for responsiveness on smaller screens */
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Allows flexible number of columns */
-            gap: 20px; /* Adjusted gap */
+            /* Base for very small screens (e.g., < 480px): auto-fit for responsiveness */
+            /* This will likely result in 1 or 2 columns on very narrow screens */
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Min card width */
+            gap: 15px; /* Slightly reduced gap for denser layouts */
             justify-items: center;
-            width: 95%; /* Use percentage for better fluidity relative to parent */
-            max-width: 1600px; /* Set a max-width for the grid itself on very large screens */
+            width: 95%; 
+            max-width: 1600px; 
             margin: 0 auto;
         }
 
-        /* For larger screens, aim for 5 columns */
-        @media (min-width: 1300px) { /* Breakpoint for 5 columns, adjust as needed based on desired card width */
-            .clip-grid {
-                grid-template-columns: repeat(5, 1fr);
-            }
-        }
-         @media (min-width: 1024px) and (max-width: 1299px) { /* For tablet to smaller desktop, 4 columns */
-            .clip-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        @media (min-width: 768px) and (max-width: 1023px) { /* For smaller tablets, 3 columns */
+        /* Mobile: 3 columns */
+        @media (min-width: 480px) and (max-width: 767px) {
             .clip-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
-         @media (min-width: 480px) and (max-width: 767px) { /* For large mobile, 2 columns */
+
+        /* Tablet: 3 columns */
+        @media (min-width: 768px) and (max-width: 1023px) {
             .clip-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr); 
             }
         }
-        /* For small mobile, auto-fit with minmax will likely result in 1 or 2 columns */
+
+        /* Smaller Desktop / Large Tablet: 4 columns */
+        @media (min-width: 1024px) and (max-width: 1299px) {
+            .clip-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* PC View / Large Desktop: 5 columns */
+        @media (min-width: 1300px) {
+            .clip-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
 
 
         .clip-card {
@@ -180,14 +186,13 @@
             overflow: hidden; 
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%; /* Clip card takes full width of its grid column */
-            /* max-width: 350px; /* This can be removed if 1fr handles sizing well, or adjusted */
+            width: 100%; 
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer; 
             position: relative; 
-            height: 300px; /* Adjusted height for potentially narrower cards */
+            height: 300px; 
         }
 
         .clip-card:hover {
@@ -237,7 +242,7 @@
         }
 
         .hover-overlay .play-icon {
-            font-size: 3rem; /* Slightly smaller play icon if cards are smaller */
+            font-size: 3rem; 
             color: gold;
             text-shadow: 0 0 10px rgba(240, 196, 32, 0.7);
         }
@@ -245,10 +250,10 @@
         .direct-download-btn {
             background-color: gold;
             color: #000; 
-            padding: 8px 15px; /* Adjusted padding */
+            padding: 8px 15px; 
             border: none;
             border-radius: 5px;
-            font-size: 0.9rem; /* Adjusted font size */
+            font-size: 0.9rem; 
             font-weight: bold;
             cursor: pointer;
             text-decoration: none; 
@@ -269,7 +274,7 @@
             left: 0;
             width: 100%;
             background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); 
-            padding: 10px; /* Adjusted padding */
+            padding: 10px; 
             text-align: center;
             z-index: 3; 
             opacity: 1; 
@@ -277,7 +282,7 @@
 
         .clip-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem; /* Adjusted font size */
+            font-size: 1.3rem; 
             color: gold;
             margin: 0; 
             text-align: center;
@@ -526,7 +531,9 @@
 
 
         /* Responsive adjustments from original (some might be overridden by new grid rules) */
-        @media (max-width: 768px) { /* This will be affected by the more specific grid rules above */
+        /* The more specific grid rules above for .clip-grid will take precedence at their respective breakpoints. */
+        /* These general rules below will apply outside those specific ranges or if elements are not .clip-grid */
+        @media (max-width: 768px) { 
             .page-hero-content h1 { font-size: 2.5rem; }
             .section-title { font-size: 1.8rem; }
             .nav-bar { flex-direction: column; padding: 15px 5%; }
@@ -537,19 +544,21 @@
             #modalDownloadLink { padding: 12px 25px; font-size: 1rem; }
             .modal-close { font-size: 2rem; top: 5px; right: 10px; }
             .related-clips-section h3 { font-size: 1.5rem; }
-            /* .related-clips-grid rules are already responsive with auto-fit */
-            /* .related-clip-card height might need adjustment based on new grid */
         }
 
-        @media (max-width: 480px) { /* This will be affected by the more specific grid rules above */
+        @media (max-width: 480px) { 
             .page-hero-content h1 { font-size: 2rem; }
             .section-title { font-size: 1.5rem; }
-            /* .clip-grid already handled by auto-fit and more specific media queries */
-            .clip-card { height: 280px; /* Adjust if needed for single column */ }
+            .clip-card { 
+                /* If the base .clip-grid uses auto-fit with minmax(160px, 1fr), 
+                   cards could be ~160px wide on a 320px screen (if 2 columns fit)
+                   or ~300px wide (if 1 column fits).
+                   Adjust height if it looks too tall for these widths. */
+                 height: 240px; /* Example adjustment for narrower cards */
+            } 
             .modal-button { padding: 8px 12px; font-size: 0.85rem; }
             #modalDownloadLink { padding: 10px 20px; font-size: 0.9rem; }
             .modal-close { font-size: 1.8rem; }
-            /* .related-clips-grid rules are already responsive with auto-fit */
         }
     </style>
 </head>
@@ -671,7 +680,7 @@
 
         let allClipsData = [];
         let currentFilteredClips = [];
-        const clipsPerPage = 9; // This might need adjustment if you want to load more items per "page" for a 5-column layout
+        const clipsPerPage = 10; // Adjusted for potentially more items with 5 columns
         let currentPage = 0;
         let isLoading = false;
         let isGeminiLoading = false;
@@ -779,12 +788,17 @@
             if(loadingMessage) loadingMessage.style.display = 'block';
 
             try {
-                const response = await fetch('./clips.json'); 
+                // Ensure clips.json is in the same directory or adjust path
+                // FIXED: Construct an absolute URL for clips.json
+                const clipsJsonUrl = new URL('clips.json', window.location.href);
+                const response = await fetch(clipsJsonUrl); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}, message: ${response.statusText}`);
                 }
                 allClipsData = await response.json();
+                // Sort by dateAdded (newest first). Make sure 'dateAdded' exists and is a valid date string in your clips.json!
                 allClipsData.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+
                 currentFilteredClips = [...allClipsData]; 
 
                 if(loadingMessage) loadingMessage.style.display = 'none';
