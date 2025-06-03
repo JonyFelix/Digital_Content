@@ -1,86 +1,98 @@
 import json
-import os
 import uuid
+from datetime import datetime
 
-# Define the path to your clips.json file
-CLIPS_FILE = 'clips.json'
+def add_fl_attachment_to_url(video_url):
+    """
+    Adds 'fl_attachment/' to a Cloudinary video URL for direct download.
+    Example:
+    Input:  https://res.cloudinary.com/demo/video/upload/dog.mp4
+    Output: https://res.cloudinary.com/demo/video/upload/fl_attachment/dog.mp4
 
-def get_thumbnail_url(video_url):
+    Input:  https://res.cloudinary.com/demo/video/upload/w_200,h_150/cat.mp4
+    Output: https://res.cloudinary.com/demo/video/upload/fl_attachment/w_200,h_150/cat.mp4
+    (Cloudinary is flexible; fl_attachment generally works well when inserted like this,
+    even before other transformations. It signals the intent to download.)
     """
-    Derives a Cloudinary thumbnail URL from a Cloudinary video URL.
-    Assumes standard Cloudinary URL structure.
-    """
-    if "res.cloudinary.com" in video_url and "/video/upload/" in video_url:
-        # Replace /video/upload/ with /image/upload/f_jpg,pg_auto/
-        # This tells Cloudinary to deliver an image (jpg) from the video
-        # and automatically pick the best frame (pg_auto) as the thumbnail.
-        return video_url.replace("/video/upload/", "/image/upload/f_jpg,pg_auto/")
-    else:
-        # Fallback if it's not a Cloudinary video URL or not in expected format
-        print("Warning: Not a Cloudinary video URL. You might need to provide a custom thumbnail.")
-        return input("Please paste the direct thumbnail URL for this video: ").strip()
+    if "fl_attachment" in video_url:  # Check if already present
+        return video_url
+    
+    upload_marker = "/video/upload/"
+    if upload_marker not in video_url:
+        print(f"Warning: '{upload_marker}' not found in URL. Cannot automatically add fl_attachment. URL unchanged: {video_url}")
+        return video_url
+    
+    # Replace the first occurrence of '/video/upload/' 
+    # with '/video/upload/fl_attachment/'
+    return video_url.replace(upload_marker, upload_marker + "fl_attachment/", 1)
 
-def add_new_clip():
+def generate_new_clips_json():
     """
-    Prompts the user for new clip details and adds it to clips.json.
+    Prompts the user for new clip details and generates JSON text for these clips.
     """
-    clips_data = []
-    if os.path.exists(CLIPS_FILE):
-        with open(CLIPS_FILE, 'r', encoding='utf-8') as f:
-            try:
-                clips_data = json.load(f)
-            except json.JSONDecodeError:
-                print(f"Warning: {CLIPS_FILE} is empty or malformed. Starting with an empty list.")
-                clips_data = []
-
-    print("\n--- Add New Clip ---")
+    newly_added_clips = []
+    print("\n--- Generate JSON for New Clips ---")
+    print("This script will help you create JSON entries for your new video clips.")
+    print("The output will be JSON text that you can copy and paste into your clips.json file.")
 
     while True:
-        video_url = input("Enter Cloudinary Video URL (e.g., https://res.cloudinary.com/.../clip.mp4): ").strip()
-        if not video_url:
+        print("\n-- Adding a new clip --")
+        video_url_original = input("Enter Cloudinary Video URL (e.g., https://res.cloudinary.com/.../clip.mp4): ").strip()
+        if not video_url_original:
             print("Video URL cannot be empty. Please try again.")
             continue
 
-        # Automatically generate thumbnail URL
-        thumbnail_url = get_thumbnail_url(video_url)
-        print(f"Generated/Provided Thumbnail URL: {thumbnail_url}")
+        video_url_for_download = add_fl_attachment_to_url(video_url_original)
+        print(f"  Modified Video URL (for download): {video_url_for_download}")
 
         title = input("Enter Clip Title: ").strip()
         if not title:
             print("Title cannot be empty. Please try again.")
             continue
 
-        description = input("Enter Clip Description: ").strip()
         tags_input = input("Enter Tags (comma-separated, e.g., luxury,car,drive): ").strip()
         tags = [tag.strip().lower() for tag in tags_input.split(',') if tag.strip()]
 
-        # Generate a unique ID (simple UUID for uniqueness)
-        clip_id = f"clip_{uuid.uuid4().hex[:10]}" # Unique ID, shortened for brevity
+        # Generate a unique ID
+        clip_id = f"clip_{uuid.uuid4().hex[:10]}"
+
+        # Get current date for dateAdded
+        date_added = datetime.now().strftime("%Y-%m-%d")
 
         new_clip = {
             "id": clip_id,
-            "thumbnail": thumbnail_url,
-            "videoSrc": video_url,
+            "videoSrc": video_url_for_download, # Use the modified URL
             "title": title,
-            "description": description,
-            "tags": tags
+            "tags": tags,
+            "dateAdded": date_added
+            # thumbnailSrc and description are intentionally omitted as per your request
         }
+        
+        # Store the original URL if you want it for other purposes, 
+        # but videoSrc should be the one for download.
+        # new_clip["originalVideoUrl"] = video_url_original # Optional: if you want to keep it
 
-        clips_data.insert(0, new_clip) # Add new clip at the beginning (making it appear newest)
+        newly_added_clips.append(new_clip)
 
-        print("\n--- Clip Added Successfully ---")
-        print(f"ID: {clip_id}, Title: {title}")
+        print(f"\n  Clip '{title}' (ID: {clip_id}) prepared.")
 
-        add_another = input("\nAdd another clip? (yes/no): ").strip().lower()
+        add_another = input("Add another clip? (yes/no): ").strip().lower()
         if add_another != 'yes':
             break
 
-    # Save the updated data back to the JSON file
-    with open(CLIPS_FILE, 'w', encoding='utf-8') as f:
-        json.dump(clips_data, f, indent=4) # indent=4 for pretty printing
-
-    print(f"\n{CLIPS_FILE} has been updated with new clips.")
-    print("Remember to commit and push this change to GitHub to update your live website!")
+    if newly_added_clips:
+        print("\n--- Generated JSON for New Clips ---")
+        print("Copy the JSON array below and add it to your clips.json file.")
+        print("If your clips.json is empty, you can use this as the entire content.")
+        print("If you have existing clips, you'll need to manually merge this array into your existing JSON array structure.")
+        
+        # Output the list of newly added clips as a JSON array string
+        json_output = json.dumps(newly_added_clips, indent=4)
+        print("\n```json")
+        print(json_output)
+        print("```\n")
+    else:
+        print("\nNo clips were added.")
 
 if __name__ == "__main__":
-    add_new_clip()
+    generate_new_clips_json()
