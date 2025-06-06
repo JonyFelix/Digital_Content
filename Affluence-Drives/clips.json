@@ -1,5 +1,63 @@
 [
+
+
      {
+        "id": "clip_ef6c1a519e",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749197580/snapins-ai_3638702608722901047_ii9nzf.mp4",
+        "title": "Luxury",
+        "tags": [
+            "car",
+            "flight",
+            "jeep",
+            "private jet"
+        ],
+        "dateAdded": "2025-06-06"
+    },
+    {
+        "id": "clip_3e5353c1ec",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749197580/snapins-ai_3573562673384765043_hvu98u.mp4",
+        "title": "Castle",
+        "tags": [
+            "old money",
+            "castle",
+            "travel",
+            "private life"
+        ],
+        "dateAdded": "2025-06-06"
+    },
+    {
+        "id": "clip_be7f727e0d",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749197580/snapins-ai_3572834565093395238_qyrmm0.mp4",
+        "title": "Cash",
+        "tags": [
+            "money",
+            "cash",
+            "luxury",
+            "rich"
+        ],
+        "dateAdded": "2025-06-06"
+    },
+    {
+        "id": "clip_b7c0757cbb",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749197580/snapins-ai_3534622112287932633_ebrl4p.mp4",
+        "title": "Night",
+        "tags": [
+            "night",
+            "night life",
+            "luxury night"
+        ],
+        "dateAdded": "2025-06-06"
+    },
+    {
+        "id": "clip_6a81e8c689",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749197582/snapins-ai_3635579622841763025_nurx6w.mp4",
+        "title": "Rich Girl",
+        "tags": [
+            "girl"
+        ],
+        "dateAdded": "2025-06-06"
+    },
+    {
         "id": "clip_62b79e8a8e",
         "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1748973580/snapins-ai_3639648759347989882_cztpm5.mp4",
         "title": "OceanTop",
