@@ -2,6 +2,103 @@
 
 
      {
+        "id": "clip_4acdcf90fa",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749366523/snapins-ai_3534510283010224030_bv6kmu.mp4",
+        "title": "Sunset",
+        "tags": [
+            "sunset",
+            "skating",
+            "evening"
+        ],
+        "dateAdded": "2025-06-08"
+    },
+    {
+        "id": "clip_98908c58fe",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749366528/snapins-ai_3623177655996485686_a7v37m.mp4",
+        "title": "Porsche",
+        "tags": [
+            "porsche",
+            "car",
+            "luxury car",
+            "rich"
+        ],
+        "dateAdded": "2025-06-08"
+    },
+    {
+        "id": "clip_9caf2677a0",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749366528/snapins-ai_3625582782921486448_qp0fvo.mp4",
+        "title": "Sea",
+        "tags": [
+            "sea",
+            "beach",
+            "evening"
+        ],
+        "dateAdded": "2025-06-08"
+    },
+    {
+        "id": "clip_733acf19fc",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749366529/snapins-ai_3640580953789824650_lbkxvz.mp4",
+        "title": "Swimming",
+        "tags": [
+            "luxury hotel"
+        ],
+        "dateAdded": "2025-06-08"
+    },
+    {
+        "id": "clip_80823c4418",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749366530/snapins-ai_3520810255735865494_aafytf.mp4",
+        "title": "couples",
+        "tags": [
+            "couple",
+            "lover",
+            "roses",
+            "botique"
+        ],
+        "dateAdded": "2025-06-08"
+    },
+    {
+        "id": "clip_a7870ed3af",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749366534/snapins-ai_3630399274099310697_hhw5rj.mp4",
+        "title": "Workout",
+        "tags": [
+            "exercise"
+        ],
+        "dateAdded": "2025-06-08"
+    },
+    {
+        "id": "clip_4e43680e74",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749366537/snapins-ai_3568474886098554127_cn4bik.mp4",
+        "title": "Money",
+        "tags": [
+            "success",
+            "money",
+            "rich",
+            "luxury",
+            "man"
+        ],
+        "dateAdded": "2025-06-08"
+    },
+    {
+        "id": "clip_3f7fd9ca15",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749366538/snapins-ai_3648275696476774123_nqaayt.mp4",
+        "title": "Luxury Hotel",
+        "tags": [
+            "hotel",
+            "luxury",
+            "rooms"
+        ],
+        "dateAdded": "2025-06-08"
+    },
+    {
+        "id": "clip_2b6128ea8b",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749366539/snapins-ai_3628157907327964253_jakgqp.mp4",
+        "title": "Old Money",
+        "tags": [
+            "old money"
+        ],
+        "dateAdded": "2025-06-08"
+    },
+    {
         "id": "clip_ef6c1a519e",
         "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749197580/snapins-ai_3638702608722901047_ii9nzf.mp4",
         "title": "Luxury",
