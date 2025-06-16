@@ -2,6 +2,52 @@
 
 
      {
+        "id": "clip_73c0abe652",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1750061337/snapins-ai_3526966669669461374_yqtqra.mp4",
+        "title": "Luxury Car",
+        "tags": [
+            "benz",
+            "bentley",
+            "car"
+        ],
+        "dateAdded": "2025-06-16"
+    },
+    {
+        "id": "clip_e487d448d6",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1750061337/snapins-ai_3649052317379369454_rsq4fw.mp4",
+        "title": "Date",
+        "tags": [
+            "dinner",
+            "love",
+            "dating",
+            "couple"
+        ],
+        "dateAdded": "2025-06-16"
+    },
+    {
+        "id": "clip_27e4efae9e",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1750061337/snapins-ai_3627865783373755028_lkt52c.mp4",
+        "title": "Fitness",
+        "tags": [
+            "fitness",
+            "gym",
+            "games"
+        ],
+        "dateAdded": "2025-06-16"
+    },
+    {
+        "id": "clip_d4412f43e3",
+        "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1750061341/snapins-ai_3650979680041166471_rxgycs.mp4",
+        "title": "Party",
+        "tags": [
+            "dance",
+            "party",
+            "drinks",
+            "night life"
+        ],
+        "dateAdded": "2025-06-16"
+    },
+    {
         "id": "clip_41abf4e8d4",
         "videoSrc": "https://res.cloudinary.com/dyzhzjlud/video/upload/fl_attachment,ac_none/v1749916262/snapins-ai_3571353638482097021_ccbtwp.mp4",
         "title": "Yatch",
