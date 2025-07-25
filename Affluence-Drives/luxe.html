@@ -12,7 +12,7 @@
             color: #e2e8f0;
             background-color: #1a1a1a;
             background-image: 
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
                 radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 30%),
                 radial-gradient(circle at 70% 60%, rgba(255, 215, 0, 0.05) 0%, transparent 30%),
                 linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 50%, #222222 100%);
@@ -136,6 +136,13 @@
             z-index: 5;
         }
 
+        .nav-shiny-button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
         .nav-shiny-button:after {
             content: '';
             position: absolute;
@@ -206,6 +213,20 @@
             50% { opacity: 0.7; }
             100% { opacity: 0; top: 150%; left: 150%; }
         }
+
+        /* Social media icon styling (copied from about.html for consistency) */
+        .social-icon {
+            display: inline-block;
+            width: 28px; /* Slightly larger for better visibility */
+            height: 28px; /* Slightly larger for better visibility */
+            color: #e2e8f0; /* Light text color for icons */
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: #FFD700; /* Gold on hover */
+            transform: translateY(-2px) scale(1.1); /* Slight lift and scale on hover */
+        }
     </style>
 </head>
 <body class="text-gray-200">
@@ -214,17 +235,13 @@
     <header class="navbar-purple-shine sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center relative z-10">
             <!-- Affluence text with white glow, Drives with glowing gold -->
-            <a href="#" class="text-2xl font-bold">
+            <a href="index.html" class="text-2xl font-bold">
                 <span class="logo-white-glow">Affluence</span><span class="logo-gold-glow">Drives</span>
             </a>
             <div class="hidden md:flex items-center space-x-4">
                 <a href="index.html" class="nav-shiny-button">Home</a> 
-                <a href="#" class="text-primary-gold font-semibold transition duration-300 nav-shiny-button">LUXE ROOM</a>
-            </div>
-            <div class="flex items-center space-x-4">
-                 <a href="#" class="bg-primary-gold text-gray-900 px-4 py-2 rounded-lg hover:bg-darker-gold transition duration-300 font-semibold gold-button">
-                    <span class="relative z-10">LUXE ROOM</span>
-                </a>
+                <a href="luxe.html" class="nav-shiny-button">LUXE ROOM</a> <!-- Corrected link -->
+                <a href="about.html" class="nav-shiny-button">About</a> <!-- Added About button for consistency -->
             </div>
             <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
@@ -234,7 +251,8 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
             <a href="index.html" class="block nav-shiny-button">Home</a> 
-            <a href="#" class="block py-2 text-primary-gold font-semibold nav-shiny-button">LUXE ROOM</a>
+            <a href="luxe.html" class="block nav-shiny-button">LUXE ROOM</a> <!-- Corrected link -->
+            <a href="about.html" class="block nav-shiny-button">About</a> <!-- Added About button for consistency -->
         </div>
     </header>
 
@@ -254,24 +272,95 @@
             </div>
         </section>
 
-        <!-- Example of enhanced asset card -->
+        <!-- Asset Cards Section -->
         <section class="py-16 md:py-24">
             <div class="container mx-auto px-6">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="asset-card bg-white rounded-lg overflow-hidden shadow-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/1a202c/ffffff?text=Monaco+Nights" alt="Visual Asset" class="w-full h-56 object-cover">
+                    <!-- Asset Card 1: Monaco Nights Visual Suite -->
+                    <div class="asset-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-xl">
+                        <img src="https://placehold.co/600x400/1a202c/ffffff?text=Monaco+Nights" alt="Monaco Nights Visual Suite Thumbnail" class="w-full h-56 object-cover">
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Monaco Nights Visual Suite</h3>
-                            <p class="text-gray-400 mb-4 text-sm">A collection of high-contrast, cinematic sequences.</p>
-                            <a href="#" class="w-full text-center bg-primary-gold text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-darker-gold transition duration-300 block gold-button">
-                                <span class="relative z-10">Acquire Asset</span>
+                            <h3 class="text-xl font-semibold text-white mb-2">Monaco Nights Visual Suite</h3>
+                            <p class="text-gray-400 mb-4 text-sm">A collection of high-contrast, cinematic sequences, perfect for luxury brand storytelling.</p>
+                            <a href="downloads/monaco-nights-suite.zip" download="Monaco_Nights_Visual_Suite.zip" class="w-full text-center bg-primary-gold text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-darker-gold transition duration-300 block gold-button">
+                                <span class="relative z-10">Download Suite</span>
                             </a>
                         </div>
                     </div>
+
+                    <!-- Asset Card 2: Urban Vibe Sound Pack -->
+                    <div class="asset-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-xl">
+                        <img src="https://placehold.co/600x400/1a202c/ffffff?text=Urban+Vibe" alt="Urban Vibe Sound Pack Thumbnail" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-white mb-2">Urban Vibe Sound Pack</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Dynamic audio loops and effects to add a modern edge to your productions.</p>
+                            <a href="downloads/urban-vibe-sound-pack.zip" download="Urban_Vibe_Sound_Pack.zip" class="w-full text-center bg-primary-gold text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-darker-gold transition duration-300 block gold-button">
+                                <span class="relative z-10">Download Pack</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Asset Card 3: Elite Branding Kit -->
+                    <div class="asset-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-xl">
+                        <img src="https://placehold.co/600x400/1a202c/ffffff?text=Branding+Kit" alt="Elite Branding Kit Thumbnail" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-white mb-2">Elite Branding Kit</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Comprehensive templates and guidelines for building a distinctive luxury brand.</p>
+                            <a href="downloads/elite-branding-kit.pdf" download="Elite_Branding_Kit.pdf" class="w-full text-center bg-primary-gold text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-darker-gold transition duration-300 block gold-button">
+                                <span class="relative z-10">Get Kit</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- You can duplicate the above 'asset-card' div block to add more assets -->
+
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- Footer (Copied from index.html/about.html for consistency) -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4"><span class="logo-white-glow">Affluence</span><span class="logo-gold-glow">Drives</span></h3>
+                    <p class="text-gray-400">Engineering excellence for the modern connoisseur.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="luxe.html" class="text-gray-400 hover:text-white">LUXE ROOM</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">India, TN</li>
+                    </ul>
+                    <div class="flex space-x-4 mt-4">
+                        <!-- Instagram Icon with updated link -->
+                        <a href="https://www.instagram.com/affluence_drives" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0-14.9-12-26.8-26.8-26.8s-26.8 12-26.8 26.8 12 26.8 26.8 26.8 26.8-12 26.8-26.8zm76.1-27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.2-26.2 26.2-34.4 58-36.2 93.9-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube Icon with updated link -->
+                        <a href="http://www.youtube.com/@affluence_drives" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
+                                <path d="M549.655 124.083c-6.281-23.65-24.787-42.18-48.432-48.46C434.956 64 288 64 288 64S141.044 64 74.777 75.623c-23.645 6.279-42.15 24.81-48.432 48.46-11.492 42.867-11.492 132.305 0 175.173 6.281 23.65 24.787 42.18 48.432 48.46C141.044 448 288 448 288 448s146.956 0 213.223-11.623c23.645-6.279 42.15-24.81 48.432-48.46 11.492-42.867 11.492-132.305 0-175.173zM279.808 362.507V149.493L400.046 256 279.808 362.507z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 text-sm mt-8">
+                &copy; 2025 Affluence Drives. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
     <script>
         // JavaScript for mobile menu toggle
