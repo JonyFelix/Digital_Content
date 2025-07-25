@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXE ROOM - Affluence Drives</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #e2e8f0;
+            background-color: #1a1a1a;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+                radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(255, 215, 0, 0.05) 0%, transparent 30%),
+                linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 50%, #222222 100%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated light streak effect for the background */
+        body:before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: rotate(45deg);
+            animation: shinyStreak 10s infinite linear;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        @keyframes shinyStreak {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* Main content needs to be positioned relative to display above the streaks */
+        main, header, footer {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .primary-gold { color: #FFD700; }
+        .bg-primary-gold { background-color: #FFD700; }
+        .hover\:bg-darker-gold:hover { background-color: #CCAA00; }
+        .text-primary-gold { color: #FFD700; }
+        .text-light-gold { color: #FFF8DC; }
+        .bg-light-gold { background-color: #FFF8DC; }
+        .text-dark-gold { color: #B8860B; }
+        
+        .glowing-text {
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.5);
+            animation: pulse-glow 3s infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            0% { text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.5); }
+            100% { text-shadow: 0 0 12px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.7), 0 0 25px rgba(255, 215, 0, 0.4); }
+        }
+
+        .logo-white-glow {
+            color: #FFFFFF;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .logo-gold-glow {
+            color: #FFD700;
+            text-shadow: 0 0 4px rgba(255, 215, 0, 0.7), 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Enhanced Shiny Purple background for Navbar */
+        .navbar-purple-shine {
+            background-color: #2A004A;
+            position: relative;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        /* Multiple layers for the navbar */
+        .navbar-purple-shine:before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E"),
+                linear-gradient(135deg, #4A007A 0%, #2A004A 50%, #3A0065 100%);
+            opacity: 0.95;
+            z-index: -1;
+        }
+        
+        /* Additional shine effect for navbar */
+        .navbar-purple-shine:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 150%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.07) 50%, 
+                rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: navbarShine 6s infinite;
+            z-index: 0;
+        }
+        
+        @keyframes navbarShine {
+            0% { left: -150%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* Shiny navigation buttons */
+        .nav-shiny-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.15) 100%);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            color: #e2e8f0;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .nav-shiny-button:after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .nav-shiny-button:hover:after {
+            left: 100%;
+            transition: all 0.5s ease;
+        }
+
+        /* Asset card shine effect */
+        .asset-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .asset-card:before {
+            content: '';
+            position: absolute;
+            top: -150%; left: -150%;
+            width: 200%; height: 200%;
+            background: linear-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0) 100%);
+            transform: rotate(45deg);
+            z-index: 1;
+            opacity: 0;
+        }
+        
+        .asset-card:hover:before {
+            animation: cardShine 1.5s forwards;
+        }
+        
+        @keyframes cardShine {
+            0% { opacity: 0; top: -150%; left: -150%; }
+            25% { opacity: 0.4; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0; top: 100%; left: 100%; }
+        }
+        
+        /* Gold button shine effect */
+        .gold-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gold-button:before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0) 100%);
+            transform: rotate(45deg);
+            z-index: 1;
+            opacity: 0;
+        }
+        
+        .gold-button:hover:before {
+            animation: buttonShine 0.8s forwards;
+        }
+        
+        @keyframes buttonShine {
+            0% { opacity: 0; top: -50%; left: -50%; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0; top: 150%; left: 150%; }
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <!-- Header -->
+    <header class="navbar-purple-shine sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center relative z-10">
+            <!-- Affluence text with white glow, Drives with glowing gold -->
+            <a href="#" class="text-2xl font-bold">
+                <span class="logo-white-glow">Affluence</span><span class="logo-gold-glow">Drives</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="index.html" class="nav-shiny-button">Home</a> 
+                <a href="#" class="text-primary-gold font-semibold transition duration-300 nav-shiny-button">LUXE ROOM</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                 <a href="#" class="bg-primary-gold text-gray-900 px-4 py-2 rounded-lg hover:bg-darker-gold transition duration-300 font-semibold gold-button">
+                    <span class="relative z-10">LUXE ROOM</span>
+                </a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="index.html" class="block nav-shiny-button">Home</a> 
+            <a href="#" class="block py-2 text-primary-gold font-semibold nav-shiny-button">LUXE ROOM</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="bg-gray-900 bg-opacity-80 text-white py-16 md:py-20 relative overflow-hidden">
+            <!-- Shiny diagonal lines background -->
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900"></div>
+                <div class="absolute inset-0" style="background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);"></div>
+                <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, rgba(255,215,0,0.05) 0px, rgba(255,215,0,0.05) 1px, transparent 1px, transparent 10px);"></div>
+            </div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <!-- LUXE ROOM text has enhanced glowing effect -->
+                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-3 glowing-text">The <span class="text-primary-gold">LUXE ROOM</span></h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">A curated collection of high-caliber assets for the discerning creator. Elevate your content instantly.</p>
+            </div>
+        </section>
+
+        <!-- Example of enhanced asset card -->
+        <section class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="asset-card bg-white rounded-lg overflow-hidden shadow-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-xl">
+                        <img src="https://placehold.co/600x400/1a202c/ffffff?text=Monaco+Nights" alt="Visual Asset" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Monaco Nights Visual Suite</h3>
+                            <p class="text-gray-400 mb-4 text-sm">A collection of high-contrast, cinematic sequences.</p>
+                            <a href="#" class="w-full text-center bg-primary-gold text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-darker-gold transition duration-300 block gold-button">
+                                <span class="relative z-10">Acquire Asset</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
