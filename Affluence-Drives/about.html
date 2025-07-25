@@ -12,7 +12,7 @@
             color: #e2e8f0;
             background-color: #1a1a1a;
             background-image: 
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
                 radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 30%),
                 radial-gradient(circle at 70% 60%, rgba(255, 215, 0, 0.05) 0%, transparent 30%),
                 linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 50%, #222222 100%);
@@ -51,3 +51,302 @@
         
         .glowing-text {
             text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.5);
+            animation: pulse-glow 3s infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            0% { text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.5); }
+            100% { text-shadow: 0 0 12px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.7); }
+        }
+
+        .logo-white-glow {
+            color: #FFFFFF;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .logo-gold-glow {
+            color: #FFD700;
+            text-shadow: 0 0 4px rgba(255, 215, 0, 0.7), 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        .navbar-purple-shine {
+            background-color: #2A004A; /* Slightly brighter dark purple base */
+            position: relative;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .navbar-purple-shine:before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                /* Subtle pink glow from corners */
+                radial-gradient(circle at 10% 90%, rgba(255, 192, 203, 0.08) 0%, transparent 20%),
+                radial-gradient(circle at 90% 10%, rgba(255, 192, 203, 0.08) 0%, transparent 20%),
+                /* Darker purple gradient */
+                linear-gradient(135deg, #3A0065 0%, #2A004A 50%, #3A0065 100%),
+                /* Shiny particle effect (subtle white dots/lines) */
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 5px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 10px 10px; /* Adjust size for repeating gradient to simulate particles */
+            background-blend-mode: overlay, overlay, normal, overlay; /* Blend modes for layered effect */
+            opacity: 0.98; /* Make it slightly more visible */
+            z-index: -1;
+        }
+        
+        .navbar-purple-shine:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 150%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.1) 50%, /* Slightly brighter shine */
+                rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: navbarShine 6s infinite;
+            z-index: 0;
+        }
+        
+        @keyframes navbarShine {
+            0% { left: -150%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .nav-shiny-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.15) 100%);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            color: #e2e8f0;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .nav-shiny-button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        /* Specific hover for the 'LUXE ROOM' link when it's just text (not the button) */
+        .text-primary-gold.hover\:text-primary-gold:hover {
+            color: #FFD700; /* Ensure it stays gold on hover */
+        }
+
+        .gold-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gold-button:before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0) 100%);
+            transform: rotate(45deg);
+            z-index: 1;
+            opacity: 0;
+        }
+        
+        .gold-button:hover:before {
+            animation: buttonShine 0.8s forwards;
+        }
+        
+        @keyframes buttonShine {
+            0% { opacity: 0; top: -50%; left: -50%; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0; top: 150%; left: 150%; }
+        }
+        
+        .about-section-image {
+            border-radius: 0.75rem; /* Tailwind rounded-lg */
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-section-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Social media icon styling */
+        .social-icon {
+            display: inline-block;
+            width: 28px; /* Slightly larger for better visibility */
+            height: 28px; /* Slightly larger for better visibility */
+            color: #e2e8f0; /* Light text color for icons */
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: #FFD700; /* Gold on hover */
+            transform: translateY(-2px) scale(1.1); /* Slight lift and scale on hover */
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <!-- Header -->
+    <header class="navbar-purple-shine sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center relative z-10">
+            <!-- Affluence text with white glow, Drives with glowing gold -->
+            <a href="index.html" class="text-2xl font-bold">
+                <span class="logo-white-glow">Affluence</span><span class="logo-gold-glow">Drives</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="index.html" class="nav-shiny-button">Home</a>
+                <a href="luxe.html" class="nav-shiny-button">LUXE ROOM</a>
+                <a href="about.html" class="nav-shiny-button">About</a> <!-- Link to this new about.html page -->
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="index.html" class="block nav-shiny-button">Home</a>
+            <a href="luxe.html" class="block nav-shiny-button">LUXE ROOM</a>
+            <a href="about.html" class="block nav-shiny-button">About</a> <!-- Link to this new about.html page -->
+        </div>
+    </header>
+
+    <main>
+        <!-- About Page Header -->
+        <section class="bg-gray-900 text-white py-16 md:py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-3 glowing-text">About <span class="text-primary-gold">Affluence Drives</span></h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">Our journey is defined by a relentless pursuit of excellence and a commitment to empowering creators.</p>
+            </div>
+        </section>
+
+        <!-- Our Vision Section -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="md:order-2">
+                        <img src="https://placehold.co/800x600/2a2a2a/FFD700?text=Our+Vision" alt="Our Vision" class="w-full h-auto about-section-image">
+                    </div>
+                    <div class="md:order-1">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6 glowing-text">Our <span class="primary-gold">Vision</span></h2>
+                        <p class="text-lg text-gray-300 mb-4">
+                            At Affluence Drives, we envision a world where every creator and entrepreneur can manifest their most ambitious ideas with unparalleled sophistication. We believe that true luxury lies not just in opulence, but in the precision, quality, and impact of one's work. Our platform is built to be the cornerstone of your brand's elevated presence.
+                        </p>
+                        <p class="text-lg text-gray-300">
+                            We strive to be the definitive source for high-caliber digital assets and strategic insights, enabling our community to craft brands that resonate with exclusivity and drive unparalleled success.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Craft Section -->
+        <section class="py-20 md:py-28 bg-opacity-60 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <img src="https://placehold.co/800x600/2a2a2a/FFD700?text=Our+Craft" alt="Our Craft" class="w-full h-auto about-section-image">
+                    </div>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6 glowing-text">Our <span class="primary-gold">Craft</span></h2>
+                        <p class="text-lg text-gray-300 mb-4">
+                            Our expertise lies in the meticulous engineering of digital assets—from cinematic visual suites to bespoke sonic palettes and cutting-edge creative prompts. Each resource in our LUXE ROOM is a testament to our dedication to quality, designed to integrate seamlessly into your projects and amplify your brand's message.
+                        </p>
+                        <p class="text-lg text-gray-300">
+                            We collaborate with industry-leading designers, sound engineers, and AI innovators to ensure that our offerings are not just tools, but catalysts for groundbreaking creativity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Commitment Section -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="md:order-2">
+                        <img src="https://placehold.co/800x600/2a2a2a/FFD700?text=Our+Commitment" alt="Our Commitment" class="w-full h-auto about-section-image">
+                    </div>
+                    <div class="md:order-1">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6 glowing-text">Our <span class="primary-gold">Commitment</span></h2>
+                        <p class="text-lg text-gray-300 mb-4">
+                            We are committed to fostering a community of driven individuals who aspire to the highest standards. Beyond providing exceptional assets, we aim to inspire, educate, and connect our members, creating an ecosystem where luxury brands are not just built, but thrive.
+                        </p>
+                        <p class="text-lg text-gray-300">
+                            Your success is the ultimate measure of our commitment. Join us in redefining the landscape of digital affluence.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4"><span class="logo-white-glow">Affluence</span><span class="logo-gold-glow">Drives</span></h3>
+                    <p class="text-gray-400">Engineering excellence for the modern connoisseur.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="luxe.html" class="text-gray-400 hover:text-white">LUXE ROOM</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">India, TN</li>
+                    </ul>
+                    <div class="flex space-x-4 mt-4">
+                        <!-- Instagram Icon with updated link -->
+                        <a href="https://www.instagram.com/affluence_drives" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0-14.9-12-26.8-26.8-26.8s-26.8 12-26.8 26.8 12 26.8 26.8 26.8 26.8-12 26.8-26.8zm76.1-27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.2-26.2 26.2-34.4 58-36.2 93.9-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube Icon with updated link -->
+                        <a href="http://www.youtube.com/@affluence_drives" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
+                                <path d="M549.655 124.083c-6.281-23.65-24.787-42.18-48.432-48.46C434.956 64 288 64 288 64S141.044 64 74.777 75.623c-23.645 6.279-42.15 24.81-48.432 48.46-11.492 42.867-11.492 132.305 0 175.173 6.281 23.65 24.787 42.18 48.432 48.46C141.044 448 288 448 288 448s146.956 0 213.223-11.623c23.645-6.279 42.15-24.81 48.432-48.46 11.492-42.867 11.492-132.305 0-175.173zM279.808 362.507V149.493L400.046 256 279.808 362.507z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 text-sm mt-8">
+                &copy; 2025 Affluence Drives. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
+
