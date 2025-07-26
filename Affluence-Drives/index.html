@@ -12,7 +12,7 @@
             color: #e2e8f0;
             background-color: #1a1a1a;
             background-image: 
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
                 radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 30%),
                 radial-gradient(circle at 70% 60%, rgba(255, 215, 0, 0.05) 0%, transparent 30%),
                 linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 50%, #222222 100%);
@@ -171,44 +171,35 @@
             100% { opacity: 0; top: 150%; left: 150%; }
         }
         
-        /* Updated hero-container to use a background video */
+        /* Updated hero-container to use a background image */
         .hero-container {
             position: relative;
             overflow: hidden;
             height: 80vh;
             min-height: 500px;
             max-height: 800px;
-            /* background-image removed as video will cover */
-            background-color: #000; /* Fallback background color if video fails to load */
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, transparent 100%), /* Dark overlay for text */
+                url('images/hero-background.jpg'); /* !!! YOUR HERO IMAGE PATH HERE !!! */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex; /* Make it a flex container to center content */
             align-items: center; /* Vertically center content */
             justify-content: flex-start; /* Align content to the left */
             color: white; /* Ensure text is visible on the image */
             z-index: 1; /* Ensure it's above the body streaks */
         }
-
-        .hero-container video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: 0;
-            transform: translate(-50%, -50%);
-            object-fit: cover; /* Ensures the video covers the container */
-            filter: brightness(60%); /* Darken the video to make text more readable */
-        }
         
         .hero-content {
             position: relative;
-            z-index: 2; /* Ensure content is above the background video */
+            z-index: 2; /* Ensure content is above the background image */
             height: 100%; /* Take full height of parent */
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: none; /* No background needed for content itself */
+            /* Removed background gradient from here as it's now on the .hero-container */
+            background: none; 
             width: 100%; /* Ensure content takes full width for container alignment */
         }
         
@@ -245,8 +236,10 @@
 </head>
 <body class="text-gray-200">
 
+    <!-- Header -->
     <header class="navbar-purple-shine sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center relative z-10">
+            <!-- Affluence text with white glow, Drives with glowing gold -->
             <a href="index.html" class="text-2xl font-bold">
                 <span class="logo-white-glow">Affluence</span><span class="logo-gold-glow">Drives</span>
             </a>
@@ -255,10 +248,12 @@
                 <a href="luxe.html" class="nav-shiny-button">LUXE ROOM</a>
                 <a href="about.html" class="nav-shiny-button">About</a>
             </div>
+            <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
             <a href="index.html" class="block nav-shiny-button">Home</a>
             <a href="luxe.html" class="block nav-shiny-button">LUXE ROOM</a>
@@ -267,11 +262,15 @@
     </header>
 
     <main>
+        <!-- Hero Video/Image Section -->
         <section class="hero-container">
-            <video class="w-full h-full object-cover absolute top-0 left-0 z-0" autoplay loop muted playsinline>
-                <source src="images/hero/hero-background.jpg" type="video/mp4">
-                Your browser does not support the video tag.
+            <!-- The placeholder-bg div is now hidden by CSS, as the background image is on .hero-container -->
+            <!-- Uncomment when you have a video (and remove the background-image from .hero-container CSS) -->
+            <!--
+            <video class="video-bg" autoplay loop muted playsinline>
+                <source src="images/hero/your-video.mp4" type="video/mp4">
             </video>
+            -->
             <div class="hero-content">
                 <div class="container mx-auto px-6">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 max-w-3xl glowing-text">
@@ -287,6 +286,7 @@
             </div>
         </section>
 
+        <!-- Brand Explanation Section -->
         <section class="py-20 md:py-28 bg-opacity-60 bg-gray-900">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
@@ -295,6 +295,7 @@
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <!-- Card 1 -->
                     <div class="luxury-card p-8">
                         <div class="primary-gold text-4xl mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12">
@@ -305,6 +306,7 @@
                         <p class="text-gray-400">Access our exclusive LUXE ROOM filled with high-caliber assets carefully curated for those who demand excellence.</p>
                     </div>
                     
+                    <!-- Card 2 -->
                     <div class="luxury-card p-8">
                         <div class="primary-gold text-4xl mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12">
@@ -315,6 +317,7 @@
                         <p class="text-gray-400">Build an impeccable presence with our refined design templates, visual assets, and identity guidelines.</p>
                     </div>
                     
+                    <!-- Card 3 -->
                     <div class="luxury-card p-8">
                         <div class="primary-gold text-4xl mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12">
@@ -328,6 +331,7 @@
             </div>
         </section>
 
+        <!-- Image Gallery Section -->
         <section class="py-20 md:py-28">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
@@ -336,33 +340,40 @@
                 </div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <!-- Replace these placeholders with your actual images -->
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="images/gallery/luxury-1.jpg" alt="Luxury Content 1" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+1';" alt="Luxury Content 1" class="w-full h-full object-cover gallery-image">
                     </div>
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="images/gallery/luxury-2.jpg" alt="Luxury Content 2" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-2.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+2';" alt="Luxury Content 2" class="w-full h-full object-cover gallery-image">
                     </div>
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="images/gallery/luxury-3.jpg" alt="Luxury Content 3" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-3.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+3';" alt="Luxury Content 3" class="w-full h-full object-cover gallery-image">
                     </div>
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="images/gallery/luxury-4.jpg" alt="Luxury Content 4" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-4.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+4';" alt="Luxury Content 4" class="w-full h-full object-cover gallery-image">
                     </div>
                 </div>
                 
+                <!-- Video Section -->
                 <div class="mt-16">
                     <h3 class="text-2xl font-bold mb-6 text-center">Premium <span class="primary-gold">Video Content</span></h3>
                     <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden bg-gray-800">
-                        <video class="w-full h-full object-cover absolute top-0 left-0 z-0" controls>
-                            <source src="images/gallery/your-gallery-video.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <!-- Replace with your video thumbnail or embed -->
+                        <div class="flex items-center justify-center h-full">
+                            <div class="text-center">
+                                <div class="text-5xl primary-gold mb-4">▶</div>
+                                <p class="text-gray-300">Your premium video will appear here</p>
+                                <p class="text-sm text-gray-500 mt-2">Upload your luxury brand videos to showcase your excellence</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -384,11 +395,14 @@
                         <li class="text-gray-400">Los Angeles, CA</li>
                     </ul>
                     <div class="flex">
+                        <!-- Added social media icons for consistency with other pages -->
+                        <!-- Instagram Icon -->
                         <a href="https://www.instagram.com/affluence_drives" target="_blank" rel="noopener noreferrer" class="social-icon mr-4" aria-label="Instagram">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" class="w-6 h-6">
                                 <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0-14.9-12-26.8-26.8-26.8s-26.8 12-26.8 26.8 12 26.8 26.8 26.8 26.8-12 26.8-26.8zm76.1-27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.2-26.2 26.2-34.4 58-36.2 93.9-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5 9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
                             </svg>
                         </a>
+                        <!-- YouTube Icon -->
                         <a href="http://www.youtube.com/@affluence_drives" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" class="w-6 h-6">
                                 <path d="M549.655 124.083c-6.281-23.65-24.787-42.18-48.432-48.46C434.956 64 288 64 288 64S141.044 64 74.777 75.623c-23.645 6.279-42.15 24.81-48.432 48.46-11.492 42.867-11.492 132.305 0 175.173 6.281 23.65 24.787 42.18 48.432 48.46C141.044 448 288 448 288 448s146.956 0 213.223-11.623c23.645-6.279 42.15-24.81 48.432-48.46 11.492-42.867 11.492-132.305 0-175.173zM279.808 362.507V149.493L400.046 256 279.808 362.507z"/>
