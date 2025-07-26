@@ -180,7 +180,7 @@
             max-height: 800px;
             background-image: 
                 linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, transparent 100%), /* Dark overlay for text */
-                url('images/hero-background.jpg'); /* !!! YOUR HERO IMAGE PATH HERE !!! */
+                url('images/hero-background.jpg'); /* Direct path to your hero image */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -198,7 +198,6 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            /* Removed background gradient from here as it's now on the .hero-container */
             background: none; 
             width: 100%; /* Ensure content takes full width for container alignment */
         }
@@ -264,11 +263,11 @@
     <main>
         <!-- Hero Video/Image Section -->
         <section class="hero-container">
-            <!-- The placeholder-bg div is now hidden by CSS, as the background image is on .hero-container -->
-            <!-- Uncomment when you have a video (and remove the background-image from .hero-container CSS) -->
+            <!-- If you have a video, uncomment the video tag and replace the src. Remove background-image from .hero-container CSS if using video. -->
             <!--
-            <video class="video-bg" autoplay loop muted playsinline>
+            <video class="w-full h-full object-cover absolute top-0 left-0 z-0" autoplay loop muted playsinline>
                 <source src="images/hero/your-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
             </video>
             -->
             <div class="hero-content">
@@ -340,18 +339,18 @@
                 </div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                    <!-- Replace these placeholders with your actual images -->
+                    <!-- Images now directly reference your uploaded files -->
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="images/gallery/luxury-1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+1';" alt="Luxury Content 1" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-1.jpg" alt="Luxury Content 1" class="w-full h-full object-cover gallery-image">
                     </div>
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="images/gallery/luxury-2.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+2';" alt="Luxury Content 2" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-2.jpg" alt="Luxury Content 2" class="w-full h-full object-cover gallery-image">
                     </div>
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="images/gallery/luxury-3.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+3';" alt="Luxury Content 3" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-3.jpg" alt="Luxury Content 3" class="w-full h-full object-cover gallery-image">
                     </div>
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="images/gallery/luxury-4.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+4';" alt="Luxury Content 4" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-4.jpg" alt="Luxury Content 4" class="w-full h-full object-cover gallery-image">
                     </div>
                 </div>
                 
@@ -359,14 +358,14 @@
                 <div class="mt-16">
                     <h3 class="text-2xl font-bold mb-6 text-center">Premium <span class="primary-gold">Video Content</span></h3>
                     <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden bg-gray-800">
-                        <!-- Replace with your video thumbnail or embed -->
-                        <div class="flex items-center justify-center h-full">
-                            <div class="text-center">
-                                <div class="text-5xl primary-gold mb-4">▶</div>
-                                <p class="text-gray-300">Your premium video will appear here</p>
-                                <p class="text-sm text-gray-500 mt-2">Upload your luxury brand videos to showcase your excellence</p>
-                            </div>
-                        </div>
+                        <!-- If you have a video, uncomment the video tag and replace the src -->
+                        <!--
+                        <video class="w-full h-full object-cover absolute top-0 left-0 z-0" autoplay loop muted playsinline>
+                            <source src="images/hero/your-video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        -->
+                        <!-- Removed placeholder div for video -->
                     </div>
                 </div>
             </div>
@@ -395,7 +394,7 @@
                         <li class="text-gray-400">Los Angeles, CA</li>
                     </ul>
                     <div class="flex">
-                        <!-- Added social media icons for consistency with other pages -->
+                        <!-- Social media icons -->
                         <!-- Instagram Icon -->
                         <a href="https://www.instagram.com/affluence_drives" target="_blank" rel="noopener noreferrer" class="social-icon mr-4" aria-label="Instagram">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" class="w-6 h-6">
