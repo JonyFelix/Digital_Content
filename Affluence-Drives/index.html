@@ -171,32 +171,40 @@
             100% { opacity: 0; top: 150%; left: 150%; }
         }
         
+        /* Updated hero-container to use a background image */
         .hero-container {
             position: relative;
             overflow: hidden;
             height: 80vh;
             min-height: 500px;
             max-height: 800px;
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, transparent 100%), /* Dark overlay for text */
+                url('images/hero-background.jpg'); /* !!! YOUR HERO IMAGE PATH HERE !!! */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex; /* Make it a flex container to center content */
+            align-items: center; /* Vertically center content */
+            justify-content: flex-start; /* Align content to the left */
+            color: white; /* Ensure text is visible on the image */
+            z-index: 1; /* Ensure it's above the body streaks */
         }
         
         .hero-content {
             position: relative;
-            z-index: 2;
-            height: 100%;
+            z-index: 2; /* Ensure content is above the background image */
+            height: 100%; /* Take full height of parent */
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+            /* Removed background gradient from here as it's now on the .hero-container */
+            background: none; 
+            width: 100%; /* Ensure content takes full width for container alignment */
         }
         
         .placeholder-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(135deg, #2a0845 0%, #5a3f87 100%);
-            z-index: 1;
+            display: none; /* Hide the old placeholder div */
         }
         
         .luxury-card {
@@ -238,7 +246,7 @@
             <div class="hidden md:flex items-center space-x-4">
                 <a href="index.html" class="nav-shiny-button">Home</a>
                 <a href="luxe.html" class="nav-shiny-button">LUXE ROOM</a>
-                <a href="about.html" class="nav-shiny-button">About</a> <!-- Corrected About button link -->
+                <a href="about.html" class="nav-shiny-button">About</a>
             </div>
             <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
@@ -249,19 +257,18 @@
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
             <a href="index.html" class="block nav-shiny-button">Home</a>
             <a href="luxe.html" class="block nav-shiny-button">LUXE ROOM</a>
-            <a href="about.html" class="block nav-shiny-button">About</a> <!-- Corrected About button link for mobile -->
+            <a href="about.html" class="block nav-shiny-button">About</a>
         </div>
     </header>
 
     <main>
         <!-- Hero Video/Image Section -->
         <section class="hero-container">
-            <!-- Replace this placeholder with your actual video or hero image -->
-            <div class="placeholder-bg"></div>
-            <!-- Uncomment when you have a video -->
+            <!-- The placeholder-bg div is now hidden by CSS, as the background image is on .hero-container -->
+            <!-- Uncomment when you have a video (and remove the background-image from .hero-container CSS) -->
             <!--
             <video class="video-bg" autoplay loop muted playsinline>
-                <source src="path-to-your-video.mp4" type="video/mp4">
+                <source src="images/hero/your-video.mp4" type="video/mp4">
             </video>
             -->
             <div class="hero-content">
@@ -335,16 +342,16 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     <!-- Replace these placeholders with your actual images -->
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+1" alt="Luxury Content" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+1';" alt="Luxury Content 1" class="w-full h-full object-cover gallery-image">
                     </div>
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+2" alt="Luxury Content" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-2.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+2';" alt="Luxury Content 2" class="w-full h-full object-cover gallery-image">
                     </div>
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+3" alt="Luxury Content" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-3.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+3';" alt="Luxury Content 3" class="w-full h-full object-cover gallery-image">
                     </div>
                     <div class="relative overflow-hidden rounded-lg aspect-square">
-                        <img src="https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+4" alt="Luxury Content" class="w-full h-full object-cover gallery-image">
+                        <img src="images/gallery/luxury-4.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/2a2a2a/CCAA00?text=Luxury+4';" alt="Luxury Content 4" class="w-full h-full object-cover gallery-image">
                     </div>
                 </div>
                 
@@ -379,15 +386,29 @@
                     <ul class="space-y-2">
                         <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
                         <li><a href="luxe.html" class="text-gray-400 hover:text-white">LUXE ROOM</a></li>
-                        <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li> <!-- Corrected About link in footer -->
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Contact</h3>
                     <ul class="space-y-2">
-                        <li class="text-gray-400"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cf-email="493a3c3939263b3d09282f2f253c2c272a2c2d3b203f2c3a672a2624">[email&#160;protected]</a></li>
                         <li class="text-gray-400">Los Angeles, CA</li>
                     </ul>
+                    <div class="flex">
+                        <!-- Added social media icons for consistency with other pages -->
+                        <!-- Instagram Icon -->
+                        <a href="https://www.instagram.com/affluence_drives" target="_blank" rel="noopener noreferrer" class="social-icon mr-4" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" class="w-6 h-6">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0-14.9-12-26.8-26.8-26.8s-26.8 12-26.8 26.8 12 26.8 26.8 26.8 26.8-12 26.8-26.8zm76.1-27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.2-26.2 26.2-34.4 58-36.2 93.9-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5 9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube Icon -->
+                        <a href="http://www.youtube.com/@affluence_drives" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" class="w-6 h-6">
+                                <path d="M549.655 124.083c-6.281-23.65-24.787-42.18-48.432-48.46C434.956 64 288 64 288 64S141.044 64 74.777 75.623c-23.645 6.279-42.15 24.81-48.432 48.46-11.492 42.867-11.492 132.305 0 175.173 6.281 23.65 24.787 42.18 48.432 48.46C141.044 448 288 448 288 448s146.956 0 213.223-11.623c23.645-6.279 42.15-24.81 48.432-48.46 11.492-42.867 11.492-132.305 0-175.173zM279.808 362.507V149.493L400.046 256 279.808 362.507z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Join Our Network</h3>
